@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<Stage xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.timkante.jfx.Controller">
+<Stage xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.timkante.kriegZurSee.Controller">
     <scene>
         <Scene>
             <AnchorPane prefHeight="527.0" prefWidth="852.0">

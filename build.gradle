@@ -27,8 +27,8 @@ dependencies {
 }
 
 application {
-    mainModule.set('dev.timkante.jfx')
-    mainClass.set('dev.timkante.jfx.App')
+    mainModule.set('dev.timkante.kriegZurSee')
+    mainClass.set('dev.timkante.kriegZurSee.App')
 }
 
 
