@@ -5,7 +5,7 @@ plugins {
     id 'application'
 }
 
-group 'dev.timkante'
+group 'dev.hsmw'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -27,8 +27,8 @@ dependencies {
 }
 
 application {
-    mainModule.set('dev.timkante.kriegZurSee')
-    mainClass.set('dev.timkante.kriegZurSee.App')
+    mainModule.set('dev.hsmw.kriegZurSee')
+    mainClass.set('dev.hsmw.kriegZurSee.App')
 }
 
 

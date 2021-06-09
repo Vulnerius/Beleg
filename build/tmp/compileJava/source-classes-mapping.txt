@@ -1,6 +1,6 @@
-dev/timkante/kriegZurSee/App.java
- dev.timkante.kriegZurSee.App
+dev/hsmw/kriegZurSee/Controller.java
+ dev.hsmw.kriegZurSee.Controller
+dev/hsmw/kriegZurSee/App.java
+ dev.hsmw.kriegZurSee.App
 module-info.java
  module-info
-dev/timkante/kriegZurSee/Controller.java
- dev.timkante.kriegZurSee.Controller

@@ -1,7 +1,7 @@
-module dev.timkante.kriegZurSee {
+module dev.hsmw.kriegZurSee {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;
 
-    exports dev.timkante.kriegZurSee;
+    exports dev.hsmw.kriegZurSee;
 }

@@ -1,4 +1,4 @@
-package dev.timkante.kriegZurSee;
+package dev.hsmw.kriegZurSee;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
