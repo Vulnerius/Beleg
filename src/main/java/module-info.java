@@ -1,7 +1,7 @@
-module dev.hsmw.kriegZurSee {
+module de.hsmw.kriegZurSee {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;
 
-    exports dev.hsmw.kriegZurSee;
+    exports de.hsmw.kriegZurSee;
 }

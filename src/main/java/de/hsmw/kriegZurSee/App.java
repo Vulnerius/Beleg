@@ -1,4 +1,4 @@
-package dev.hsmw.kriegZurSee;
+package de.hsmw.kriegZurSee;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

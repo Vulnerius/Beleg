@@ -1,6 +1,6 @@
-dev/hsmw/kriegZurSee/Controller.java
- dev.hsmw.kriegZurSee.Controller
-dev/hsmw/kriegZurSee/App.java
- dev.hsmw.kriegZurSee.App
+de/hsmw/kriegZurSee/Controller.java
+ de.hsmw.kriegZurSee.Controller
+de/hsmw/kriegZurSee/App.java
+ de.hsmw.kriegZurSee.App
 module-info.java
  module-info
