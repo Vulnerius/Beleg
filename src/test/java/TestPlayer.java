@@ -19,9 +19,10 @@ public class TestPlayer {
         Assertions.assertEquals(playerOne, playerTwo.enemy);
     }
     @Test
-    public void shotTesting(){
+    public void singleShotTesting(){
         playerOne.setEnemy(playerTwo);
         Assertions.assertTrue(playerOne.shootOne(new Point(2,0)));
         Assertions.assertFalse(playerOne.shootOne(new Point(1,0)));
+        Assertions.assertEquals(13,playerOne.getShotCount());
     }
 }
