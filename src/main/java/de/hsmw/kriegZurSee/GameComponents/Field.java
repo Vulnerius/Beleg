@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Field {
-    final int withNheight = 6;
+    final int length = 6;
     public final BattleShip bs = new BattleShip();
     public final Corsair cs = new Corsair();
     public final HeliLandingBoat hlb = new HeliLandingBoat();
@@ -20,6 +20,7 @@ public class Field {
     public Field(){
         setBoats();
     }
+
     public boolean anyBoatGotHit(Point shot) {
         for (AbstractBoat b : boats) {
             return b.addHitPoint(shot);
@@ -29,7 +30,7 @@ public class Field {
 
     public boolean allBoatsInField() {
         Point p0 = new Point(1, 1);
-        Point pEnd = new Point(withNheight, withNheight);
+        Point pEnd = new Point(length, length);
         for (AbstractBoat b : boats) {
             return Range.between(p0.x, pEnd.x).contains((int) (b.getPosition().getX() + b.getWidth())) &&
                     Range.between(p0.y, pEnd.y).contains((int)b.getPosition().getY()+ b.getHeight());
@@ -39,14 +40,16 @@ public class Field {
 
     public Point searchFct() {
         //get random boat -> getRandomNotAlreadyShotPosition
-        ArrayList<Point> randomPoints = new ArrayList<Point>();
+        ArrayList<Point> randomPoints = new ArrayList<>();
         for(AbstractBoat b : boats){
             if(!b.boatIsDisabled()){
-
+                for(int temp = 0; temp < b.hitPoints.length; temp++){
+                    if(b.hitPoints[temp] == 0)
+                        randomPoints.add(new Point( (int)(b.getPosition().getX()+temp) , (int)(b.getPosition().getY()+temp)));
+                }
             }
         }
-
-        return boats[Utilis.randInt(1, 5)].getPosition();
+        return randomPoints.get(Utilis.randInt(1,randomPoints.size()));
     }
 
     private void setBoats(){

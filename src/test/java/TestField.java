@@ -12,6 +12,9 @@ public class TestField {
     public void searchForBoat(){
         Assertions.assertTrue(Range.between(1,6).contains((int) fieldOne.searchFct().getX()));
         Assertions.assertTrue(Range.between(1,6).contains((int) fieldOne.searchFct().getY()));
+
+        fieldOne.rb2.addHitPoint(fieldOne.rb2.getPosition());
+        
     }
     @Test
     public void allBoatsInField(){
