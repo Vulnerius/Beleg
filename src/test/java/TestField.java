@@ -20,6 +20,7 @@ public class TestField {
         fieldOne.cs.addHitPoint(fieldOne.cs.getPosition());
         fieldOne.rb2.addHitPoint(fieldOne.rb2.getPosition());
         fieldOne.rb1.addHitPoint(fieldOne.rb1.getPosition());
+        fieldOne.hlb.bsIsDestroyed();
         fieldOne.hlb.addHitPoint(fieldOne.hlb.getPosition());
 
         Point gottenPoint = fieldOne.searchFct();
