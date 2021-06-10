@@ -44,13 +44,16 @@ public class Player {
 
     }
 
-    public void shootTriple(Point p1, Point p2, Point p3) {
+    public boolean shootTriple(Point p1, Point p2, Point p3) {
         if (!playerField.cs.boatIsDisabled() && shotCount >= 3) {
             shootOne(p1);
             shootOne(p2);
             shootOne(p3);
+            return true;
         }
+        return false;
     }
+
     public void shootQuadruple(Point p1, Point p2, Point p3, Point p4, Point p5) {
         if (!playerField.bs.boatIsDisabled() && playerField.bs.canShoot5()) {
             shootOne(p1); shootOne(p2); shootOne(p3); shootOne(p4); shootOne(p5);
