@@ -7,10 +7,11 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class App extends Application {
+    FXMLLoader mainScene = new FXMLLoader(Objects.requireNonNull(getClass().getResource("MainScene.fxml")));;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Stage root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("sample.fxml")));
+        Stage root = mainScene.load();
         primaryStage.setTitle("Hello World");
         primaryStage = root;
         primaryStage.show();

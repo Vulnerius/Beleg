@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<Stage xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hsmw.kriegZurSee.Controller">
+<Stage xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hsmw.kriegZurSee.MainScene.Controller">
     <scene>
         <Scene>
             <AnchorPane prefHeight="527.0" prefWidth="852.0">
