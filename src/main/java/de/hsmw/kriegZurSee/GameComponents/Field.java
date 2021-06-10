@@ -41,6 +41,7 @@ public class Field {
     public Point searchFct() {
         //get random boat -> getRandomNotAlreadyShotPosition
         ArrayList<Point> randomPoints = new ArrayList<>();
+
         for(AbstractBoat b : boats){
             if(!b.boatIsDisabled()){
                 for(int temp = 0; temp < b.hitPoints.length; temp++){

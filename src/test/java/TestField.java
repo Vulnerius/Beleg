@@ -12,7 +12,7 @@ public class TestField {
     Field fieldTwo = new Field();
 
     @Test
-    public void searchForBoat(){
+    public void searchForBoat()  {
         Assertions.assertTrue(Range.between(1,6).contains((int) fieldOne.searchFct().getX()));
         Assertions.assertTrue(Range.between(1,6).contains((int) fieldOne.searchFct().getY()));
 

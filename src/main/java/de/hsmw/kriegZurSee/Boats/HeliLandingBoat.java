@@ -29,6 +29,7 @@ public class HeliLandingBoat extends AbstractBoat {
     public boolean addHitPoint(Point p0) {
         if (canBeDamaged)
             return super.addHitPoint(p0);
-        else return false;
+        else
+            return false;
     }
 }
