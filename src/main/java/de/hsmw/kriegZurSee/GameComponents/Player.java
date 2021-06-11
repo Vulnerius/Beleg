@@ -12,9 +12,11 @@ public class Player {
     public Player(String name){
         this.name = name;
     }
+
     public void setEnemy(Player enemy){
         this.enemy = enemy;
     }
+
     public Player(String name, Player enemy) {
         this.name = name;
         this.enemy = enemy;
