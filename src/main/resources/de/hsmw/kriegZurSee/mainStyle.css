@@ -1,0 +1,7 @@
+#myGrid :hover{
+    -fx-background-color: white;
+}
+
+#enemyGrid :hover{
+    -fx-background-color: white;
+}
