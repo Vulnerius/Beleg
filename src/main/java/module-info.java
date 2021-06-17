@@ -6,5 +6,4 @@ module de.hsmw.kriegZurSee {
     requires org.apache.commons.lang3;
 
     exports de.hsmw.kriegZurSee;
-    exports de.hsmw.kriegZurSee.MainScene;
 }
