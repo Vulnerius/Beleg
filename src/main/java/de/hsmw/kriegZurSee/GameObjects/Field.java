@@ -10,10 +10,12 @@ public class Field extends GameObject{
 
     public Field(de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
         super(id, x, y, width, height, Color.BLUE);
+        setBoats();
     }
 
-    private void setBoats(){
 
+    private void setBoats(){
+        //GameLogic.buildField();
     }
 
     @Override

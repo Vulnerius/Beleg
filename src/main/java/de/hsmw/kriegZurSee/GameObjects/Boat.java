@@ -23,7 +23,7 @@ public abstract class Boat extends GameObject {
     }
 
     public final boolean didIGotHit(Point2D point){
-        if( getPosition().intersects(point.getX(),point.getY(),.5,.5) ){
+        if( getPosition().contains(point) ){
             hitPointCounter++;
             return true;
         }
