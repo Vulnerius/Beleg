@@ -12,15 +12,16 @@ public abstract class GameObject {
     private boolean hasCooldown = false;
 
 
-    public GameObject(ID id, int x, int y, int width, int height) {
+    public GameObject(ID id, int x, int y, int width, int height, javafx.scene.paint.Color color) {
         this.ID = id;
         position = new Rectangle(x, y, width, height);
+        position.setFill(color);
     }
 
     public abstract void tick();
     public abstract void render(Graphics g);
 
-    private void setPos(int x, int y, int width, int height){
+    public void setPos(int x, int y, int width, int height){
         position.setX(x);
         position.setY(y);
         position.setWidth(width);
@@ -28,9 +29,10 @@ public abstract class GameObject {
     }
 
 
-    private boolean collidesWith(GameObject other){
+    public boolean collidesWith(GameObject other){
         return position.intersects(other.position.getX(),other.position.getY(),other.position.getWidth(),other.position.getHeight());
     }
+
 
     public Rectangle getPosition() {
         return position;

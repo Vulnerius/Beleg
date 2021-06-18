@@ -1,6 +1,6 @@
 package de.hsmw.kriegZurSee.GameObjects;
 
-
+import javafx.scene.paint.Color;
 import java.awt.*;
 
 public class Field extends GameObject{
@@ -9,7 +9,7 @@ public class Field extends GameObject{
 
 
     public Field(de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
-        super(id, x, y, width, height);
+        super(id, x, y, width, height, Color.BLUE);
     }
 
     private void setBoats(){
