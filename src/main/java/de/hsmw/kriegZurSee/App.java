@@ -1,14 +1,13 @@
 package de.hsmw.kriegZurSee;
 
+import de.hsmw.kriegZurSee.userInterface.IUserInterfaceContract;
 import de.hsmw.kriegZurSee.userInterface.UserInterFace;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
-    private static UserInterFace ui;
-
-
+    public static UserInterFace ui;
 
     @Override
     public void start(Stage primaryStage) {
