@@ -1,5 +1,6 @@
 package de.hsmw.kriegZurSee;
 
+import de.hsmw.kriegZurSee.inputs.Handler;
 import de.hsmw.kriegZurSee.userInterface.UserInterFace;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -8,11 +9,12 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
 
-    private static UserInterFace ui;
-    //private final UserInterfaceListener uiListener;
+    public static UserInterFace ui;
+    public static Handler handler;
+
 
     public Game() {
-        //  uiListener = new UserInterFaceListener()
+
 
     }
 
@@ -20,9 +22,10 @@ public class Game extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
         primaryStage.setTitle("Hello World");
-
+        Game game = new Game();
+        handler = new Handler(game);
         //set Storage File here
-        ui = new UserInterFace(primaryStage);
+        ui = new UserInterFace(game,primaryStage, handler);
         primaryStage.show();
     }
 

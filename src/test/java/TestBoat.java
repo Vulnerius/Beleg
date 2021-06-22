@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 
 public class TestBoat {
     Corsair cs = new Corsair(ID.Corsair,4,4,3,1, Color.RED);
