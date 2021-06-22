@@ -5,5 +5,6 @@ public enum ID {
     Corsair(),
     HeliLandingBoat(),
     RepairBoat(),
-    Field()
+    MyField(),
+    EnemyField()
 }
