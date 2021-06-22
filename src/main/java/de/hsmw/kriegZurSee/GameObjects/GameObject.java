@@ -21,15 +21,15 @@ public abstract class GameObject {
 
     public abstract void render(Graphics g);
 
-    public void setPos(int x, int y){
+    public void setPos(int x, int y) {
         position.setX(x);
         position.setY(y);
 
     }
 
 
-    public boolean collidesWith(GameObject other){
-        return position.intersects(other.position.getX(),other.position.getY(),other.position.getWidth(),other.position.getHeight());
+    public boolean collidesWith(GameObject other) {
+        return position.intersects(other.position.getX(), other.position.getY(), other.position.getWidth(), other.position.getHeight());
     }
 
 
@@ -41,4 +41,7 @@ public abstract class GameObject {
         return ID;
     }
 
+    public static String getName() {
+        return "GameObject";
+    }
 }

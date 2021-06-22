@@ -1,6 +1,7 @@
 package de.hsmw.kriegZurSee.GameObjects;
 
 import de.hsmw.kriegZurSee.constants.ID;
+import de.hsmw.kriegZurSee.fieldLogic.FieldLogic;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import java.awt.*;
@@ -9,7 +10,7 @@ public class Field extends GameObject{
 
     //list or array for Boats
 
-    private Boat[] boats = new Boat[5];
+    private final Boat[] boats = new Boat[5];
     private final ID id;
 
 
@@ -21,7 +22,7 @@ public class Field extends GameObject{
 
 
     private void setBoats(){
-       // FieldLogic.setBoats(boats);
+       FieldLogic.setBoats(boats);
     }
 
 
@@ -29,12 +30,11 @@ public class Field extends GameObject{
         return id;
     }
 
-    public Boat searchForMatching(Point2D mouseclick){
+    public boolean searchForMatching(Point2D mouseclick){
         for(Boat boat : boats){
-            if(boat.getPosition().intersects(mouseclick.getX(),mouseclick.getY(),0.1,0.1))
-                return boat;
+            return (boat.getPosition().intersects(mouseclick.getX(),mouseclick.getY(),0.1,0.1));
         }
-        return null; //nein!
+        return false;
     }
 
     @Override

@@ -2,12 +2,14 @@ package de.hsmw.kriegZurSee.userInterface;
 
 import de.hsmw.kriegZurSee.Game;
 import de.hsmw.kriegZurSee.GameObjects.Field;
+import de.hsmw.kriegZurSee.GameObjects.GameObject;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.inputs.ButtonClick;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -15,13 +17,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import static de.hsmw.kriegZurSee.Game.BOARD_WIDTH_HEIGHT;
 
 
 public class UserInterFace {
     private final int WIDTH = 800, HEIGHT = WIDTH / 12 * 9;
-    private final int BOARD_WIDTH_HEIGHT = 240;
+
     private final Handler handler;
     private final Game game;
 
@@ -31,11 +36,11 @@ public class UserInterFace {
     private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
 
-    private final Field field1;
-    private final Field field2;
+    private Circle referenceCircle;
 
 
     public UserInterFace(Game game, Stage stage, Handler handler) {
+        referenceCircle = new Circle(1,1,0);
         this.stage = stage;
         this.handler = handler;
         this.game = game;
@@ -45,9 +50,7 @@ public class UserInterFace {
         sceneBP = new BorderPane();
 
         fieldAnchorPane = new AnchorPane();
-        field1 = new Field(ID.MyField, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
-        field2 = new Field(ID.EnemyField, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
-        fieldAnchorPane.getChildren().addAll(field1.getPosition(), field2.getPosition());
+        fieldAnchorPane.getChildren().addAll(game.getField1().getPosition(), game.getField2().getPosition());
         fieldAnchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
 
         VBox buttonvBox = new VBox(75);
@@ -59,6 +62,7 @@ public class UserInterFace {
 
         buttonvBox.getChildren().addAll(restore, searchPt);
         Button changeTurn = new Button("changeTurn");
+        changeTurn.setOnAction(ButtonClick.onChange());
         buttonvBox.getChildren().add(changeTurn);
         buttonvBox.setPadding(new Insets(40, 15, 20, 140));
 
@@ -68,6 +72,7 @@ public class UserInterFace {
 
         initializeUI();
         setScene(scene);
+        show();
     }
     private void setScene(Scene scene){
         stage.setScene(scene);
@@ -77,8 +82,8 @@ public class UserInterFace {
     }
 
     private void initializeUI() {
-        drawGrid(field1, fieldAnchorPane);
-        drawGrid(field2, fieldAnchorPane);
+        drawGrid(game.getField1(), fieldAnchorPane);
+        drawGrid(game.getField2(), fieldAnchorPane);
         root.getChildren().add(sceneBP);
         scene.setFill(Color.valueOf("#eee"));
     }
@@ -105,14 +110,13 @@ public class UserInterFace {
         return line;
     }
 
-    public void drawRect(int x, int y) {
-        Rectangle shot = new Rectangle(x, y, 40, 40);
-        shot.setFill(Color.RED);
+    public void drawCircle(int x, int y) {
+        Circle shot = new Circle(x, y, 15, Color.RED);
         fieldAnchorPane.getChildren().add(shot);
     }
 
-    public void addShot() {
-
+    public void removeShot() {
+fieldAnchorPane.getChildren().removeIf(d -> d.getClass().equals(referenceCircle.getClass()));
     }
 
     public Scene getScene() {
