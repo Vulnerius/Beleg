@@ -18,10 +18,6 @@ public class RepairBoat extends Boat {
     }
 
     @Override
-    public void tick() {
-    }
-
-    @Override
     public void render(Graphics g) {
 
     }

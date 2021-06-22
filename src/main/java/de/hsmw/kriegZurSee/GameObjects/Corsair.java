@@ -11,11 +11,6 @@ public class Corsair extends Boat {
     }
 
     @Override
-    public void tick() {
-
-    }
-
-    @Override
     public void render(Graphics g) {
 
     }

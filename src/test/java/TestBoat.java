@@ -6,6 +6,8 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
 public class TestBoat {
     Corsair cs = new Corsair(ID.Corsair,4,4,3,1, Color.RED);
     BattleShip bs1 = new BattleShip(ID.BattleShip,2,2, 4, 1,Color.RED);
@@ -18,25 +20,35 @@ public class TestBoat {
         Assertions.assertTrue(bs1.collidesWith(bs2));
 
         //no Collision bc outOufRange
-        bs1.setPos(3,3,1,4);
-        bs2.setPos(1,1,1,4);
+        bs1.setPos(3,3);
+        bs2.setPos(1,1);
         Assertions.assertFalse(bs1.collidesWith(bs2));
 
         //Collision on UpperRightCorner
-        bs2.setPos(7,5,3,1);
+        bs2.setPos(7,5);
         Assertions.assertTrue(cs.collidesWith(bs2));
 
         //cs still in (4,4) -> (6,5) --- Collision on lower left
-        bs2.setPos(3,3,1,1);
+        bs2.setPos(3,3);
         Assertions.assertTrue(bs2.collidesWith(cs));
 
         //collision on left
-        bs2.setPos(2,4,1,1);
-        Assertions.assertFalse(bs2.collidesWith(cs));
+        bs2.setPos(2,4);
+        Assertions.assertTrue(bs2.collidesWith(cs));
     }
+
     @Test
     public void shotTest(){
-        Point2D pCS  = new Point2D(7,5);
-        Assertions.assertFalse(cs.didIGotHit(pCS));
+        Point2D pCSOR  = new Point2D(6,5);
+        Assertions.assertFalse(cs.didIGotHit(pCSOR));
+
+        Point2D pCSUL  = new Point2D(3,3);
+        Assertions.assertFalse(cs.didIGotHit(pCSUL));
+
+    Point2D pCSOL  = new Point2D(5,3);
+        Assertions.assertFalse(cs.didIGotHit(pCSOL));
+
+    Point2D pCSUR  = new Point2D(3,5);
+        Assertions.assertFalse(cs.didIGotHit(pCSUR));
     }
 }

@@ -7,7 +7,7 @@ import java.awt.*;
 public class HeliLandingBoat extends Boat {
     private boolean canBeDamaged = false;
 
-    public HeliLandingBoat(de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height, Color color) {
+    public HeliLandingBoat(de.hsmw.kriegZurSee.constants.ID id, int x, int y, double width, double height, Color color) {
         super(id, x, y, width, height,color);
     }
 
@@ -20,10 +20,6 @@ public class HeliLandingBoat extends Boat {
         return canBeDamaged;
     }
 
-
-    @Override
-    public void tick() {
-    }
 
     @Override
     public void render(Graphics g) {
