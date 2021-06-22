@@ -19,7 +19,7 @@ public abstract class GameObject {
         position.setFill(color);
     }
 
-    public abstract void render(Graphics g);
+    public abstract void tick();
 
     public void setPos(int x, int y) {
         position.setX(x);

@@ -1,6 +1,7 @@
 package de.hsmw.kriegZurSee;
 
 import de.hsmw.kriegZurSee.GameObjects.Field;
+import de.hsmw.kriegZurSee.constants.BoatPlacements;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import de.hsmw.kriegZurSee.userInterface.UserInterFace;
@@ -22,12 +23,13 @@ public class Game extends Application {
         field2 = new Field(ID.EnemyField, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
     }
 
-    public boolean searchField(ID myField, Point2D mouseClick) {
-        return switch (myField) {
-            case MyField -> field1.searchForMatching(mouseClick);
-            case EnemyField -> field2.searchForMatching(mouseClick);
-            default -> false;
-        };
+    public boolean searchField(ID id, Point2D mouseClick) {
+        if (id.equals(ID.EnemyField))
+            return field2.searchForMatching(mouseClick);
+        else if (id.equals(ID.MyField))
+            return field1.searchForMatching(mouseClick);
+
+        return false;
     }
 
     @Override

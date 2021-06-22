@@ -1,6 +1,7 @@
 import de.hsmw.kriegZurSee.GameObjects.BattleShip;
 import de.hsmw.kriegZurSee.GameObjects.Corsair;
-import de.hsmw.kriegZurSee.constants.ID;
+import de.hsmw.kriegZurSee.GameObjects.HeliLandingBoat;
+import de.hsmw.kriegZurSee.GameObjects.RepairBoat;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Assertions;
@@ -8,9 +9,11 @@ import org.junit.jupiter.api.Test;
 
 
 public class TestBoat {
-    Corsair cs = new Corsair(ID.Corsair,4,4,3,1, Color.RED);
-    BattleShip bs1 = new BattleShip(ID.BattleShip,2,2, 4, 1,Color.RED);
-    BattleShip bs2 = new BattleShip(ID.BattleShip,3,2, 4, 1,Color.RED);
+    Corsair cs = new Corsair(4,4,3,1, Color.RED);
+    BattleShip bs1 = new BattleShip(2,2, 4, 1,Color.RED);
+    BattleShip bs2 = new BattleShip(3,2, 4, 1,Color.RED);
+    HeliLandingBoat hlb = new HeliLandingBoat(3,2, 4, 1,Color.RED);
+    RepairBoat rb = new RepairBoat(3,2, 4, 1,Color.RED);
 
 
     @Test

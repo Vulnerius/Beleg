@@ -1,6 +1,7 @@
 package de.hsmw.kriegZurSee.userInterface;
 
 import de.hsmw.kriegZurSee.Game;
+import de.hsmw.kriegZurSee.GameObjects.Boat;
 import de.hsmw.kriegZurSee.GameObjects.Field;
 import de.hsmw.kriegZurSee.GameObjects.GameObject;
 import de.hsmw.kriegZurSee.constants.ID;
@@ -25,7 +26,7 @@ import static de.hsmw.kriegZurSee.Game.BOARD_WIDTH_HEIGHT;
 
 
 public class UserInterFace {
-    private final int WIDTH = 800, HEIGHT = WIDTH / 12 * 9;
+    private final int WIDTH = 600, HEIGHT = 600;
 
     private final Handler handler;
     private final Game game;
@@ -36,11 +37,11 @@ public class UserInterFace {
     private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
 
-    private Circle referenceCircle;
+    private final Circle referenceCircle;
 
 
     public UserInterFace(Game game, Stage stage, Handler handler) {
-        referenceCircle = new Circle(1,1,0);
+        referenceCircle = new Circle(1, 1, 0);
         this.stage = stage;
         this.handler = handler;
         this.game = game;
@@ -52,6 +53,12 @@ public class UserInterFace {
         fieldAnchorPane = new AnchorPane();
         fieldAnchorPane.getChildren().addAll(game.getField1().getPosition(), game.getField2().getPosition());
         fieldAnchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
+        for (Boat b : game.getField1().getBoats()) {
+            fieldAnchorPane.getChildren().add(b.getPosition());
+        }
+        for (Boat b : game.getField2().getBoats()) {
+            fieldAnchorPane.getChildren().add(b.getPosition());
+        }
 
         VBox buttonvBox = new VBox(75);
         buttonvBox.setAlignment(Pos.BASELINE_RIGHT);
@@ -74,10 +81,12 @@ public class UserInterFace {
         setScene(scene);
         show();
     }
-    private void setScene(Scene scene){
+
+    private void setScene(Scene scene) {
         stage.setScene(scene);
     }
-    private void show(){
+
+    public void show() {
         stage.show();
     }
 
@@ -111,15 +120,22 @@ public class UserInterFace {
     }
 
     public void drawCircle(int x, int y) {
-        Circle shot = new Circle(x, y, 15, Color.RED);
+        Circle shot = new Circle(x, y, 10);
+        shot.setFill(Color.WHITESMOKE);
         fieldAnchorPane.getChildren().add(shot);
     }
 
     public void removeShot() {
-fieldAnchorPane.getChildren().removeIf(d -> d.getClass().equals(referenceCircle.getClass()));
+        fieldAnchorPane.getChildren().removeIf(d -> d.getClass().equals(referenceCircle.getClass()));
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    public void drawMissCircle(int x, int y) {
+        Circle miss = new Circle(x, y, 10);
+        miss.setFill(Color.DARKRED);
+        fieldAnchorPane.getChildren().add(miss);
     }
 }

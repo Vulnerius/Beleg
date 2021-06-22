@@ -6,12 +6,12 @@ import java.awt.*;
 
 public class Corsair extends Boat {
 
-    public Corsair(de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height, Color color) {
-        super(id, x, y, width, height,color);
+    public Corsair( int x, int y, double width, double height, Color color) {
+        super(de.hsmw.kriegZurSee.constants.ID.Corsair, x, y, width, height,color);
     }
 
     @Override
-    public void render(Graphics g) {
+    public void tick() {
 
     }
 }

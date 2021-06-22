@@ -3,39 +3,62 @@ package de.hsmw.kriegZurSee.GameObjects;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
+import java.util.Arrays;
+
 
 public abstract class Boat extends GameObject {
 
     private final double length;
-    private int hitPointCounter = 0;
+    private final int[] hitPointCounter;
 
     public Boat(de.hsmw.kriegZurSee.constants.ID id, int x, int y, double width, double height, Color color) {
         super(id, x, y, width, height, color);
-        if (checkIsVert()) length = width / 64;
-        else length = height / 64;
+        if (checkIsVert()) length = width / 40;
+        else length = height / 40;
+        hitPointCounter = new int[(int) length];
+        Arrays.fill(hitPointCounter, 0);
     }
 
-    private boolean checkIsVert(){
+    private boolean checkIsVert() {
         return position.getWidth() > position.getHeight();
     }
 
-    public boolean isBoatDrowned(){
-        return hitPointCounter == length;
-    }
-
-    public final boolean didIGotHit(Point2D point){
-        if( getPosition().contains(point) ){
-            hitPointCounter++;
-            return true;
+    public boolean isBoatDrowned() {
+        for (int temp : hitPointCounter) {
+            if (temp == 1)
+                return true;
         }
         return false;
     }
 
-    public void getRepaired(){
-        hitPointCounter--;
+    public boolean didIGotHit(Point2D point) {
+        if (getPosition().intersects(point.getX(), point.getY(), 0.1, 0.1)) {
+            if (checkIsVert()) {
+                if (hitPointCounter[(int) ((getPosition().getX() + getPosition().getWidth() - point.getX()) / 40)] == 1) {
+                    return false;
+                } else {
+                    hitPointCounter[(int) ((getPosition().getX() + getPosition().getWidth() - point.getX()) / 40)] = 1;
+                    return true;
+                }
+            } else {
+                if(hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - point.getY()) / 40)] == 1)
+                    return false;
+                else {
+                    hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - point.getY()) / 40)] = 1;
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
-    private void addHitPoint(){
-        hitPointCounter++;
+    public int[] getHitPointCounter() {
+        return hitPointCounter;
     }
+
+    public void getRepaired(int index) {
+        hitPointCounter[index] = 0;
+    }
+
 }

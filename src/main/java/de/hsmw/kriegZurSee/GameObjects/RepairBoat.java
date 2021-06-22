@@ -9,16 +9,16 @@ public class RepairBoat extends Boat {
         super(de.hsmw.kriegZurSee.constants.ID.RepairBoat,x,y,width,height, color);
     }
 
-    public void repair(final Boat toRepair) {
+    public void repair(final Boat toRepair, int index) {
         if(isBoatDrowned() && toRepair.isBoatDrowned()){
-            toRepair.getRepaired();
+            toRepair.getRepaired(index);
         } /*else{
             showDialog(Messages.BoatIsDrowned)
         }*/
     }
 
     @Override
-    public void render(Graphics g) {
+    public void tick() {
 
     }
 }
