@@ -1,8 +1,5 @@
 package de.hsmw.kriegZurSee.GameObjects;
-
 import javafx.scene.paint.Color;
-
-import java.awt.*;
 
 public class RepairBoat extends Boat {
     public RepairBoat(int x, int y, int width, int height, Color color) {

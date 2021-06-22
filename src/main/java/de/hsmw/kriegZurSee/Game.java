@@ -1,7 +1,6 @@
 package de.hsmw.kriegZurSee;
 
 import de.hsmw.kriegZurSee.GameObjects.Field;
-import de.hsmw.kriegZurSee.constants.BoatPlacements;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import de.hsmw.kriegZurSee.userInterface.UserInterFace;

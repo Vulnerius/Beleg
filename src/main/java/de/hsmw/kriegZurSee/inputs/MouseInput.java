@@ -5,12 +5,6 @@ import de.hsmw.kriegZurSee.constants.ID;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 
-
-/*
-Fields at
-UserInterface.anchorPane
- */
-
 public class MouseInput {
 
     Game game;
