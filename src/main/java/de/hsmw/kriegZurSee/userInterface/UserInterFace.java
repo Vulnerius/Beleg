@@ -36,8 +36,8 @@ public class UserInterFace {
         sceneBP = new BorderPane();
 
         fieldVBox = new AnchorPane();
-        field1 = new Field(ID.Field, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
-        field2 = new Field(ID.Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        field1 = new Field(ID.MyField, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        field2 = new Field(ID.EnemyField, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         fieldVBox.getChildren().addAll(field1.getPosition(),field2.getPosition());
 
         VBox buttonvBox = new VBox(50);
