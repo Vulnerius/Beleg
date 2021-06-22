@@ -41,7 +41,4 @@ public abstract class GameObject {
         return ID;
     }
 
-    public static String getName() {
-        return "GameObject";
-    }
 }
