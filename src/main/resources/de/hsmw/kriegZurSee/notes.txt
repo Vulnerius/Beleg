@@ -1,0 +1,24 @@
+
+
+field1 :
+(y/x)          (x/y)
+30/20 -- 260/20
+|                           |
+270/20 -- 260/270
+
+field2:
+(y/x)           (x/y)
+330/20 -- 260/330
+|                           |
+610/20 --  260/610
+
+Player 1 on Field 1:
+    repair If possible
+Player 1 on Field 2
+    shoot
+
+Player 2 on Field 1:
+    shoot
+Player 2 on Field 2
+    repair if poss
+

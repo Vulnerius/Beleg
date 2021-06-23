@@ -63,8 +63,10 @@ public abstract class Boat extends GameObject {
         return hitPointCounter;
     }
 
-    public void getRepaired(int index) {
-        hitPointCounter[index] = 0;
+    public void getRepaired(Point2D mouseClick) {
+        if (checkIsVert()) {
+            hitPointCounter[(int) ((getPosition().getX() + getPosition().getWidth() - mouseClick.getX()) / 40)] = 0;
+        } else
+            hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - mouseClick.getY()) / 40)] = 0;
     }
-
 }

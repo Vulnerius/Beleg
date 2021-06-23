@@ -1,17 +1,22 @@
 package de.hsmw.kriegZurSee.GameObjects.boats;
+import de.hsmw.kriegZurSee.constants.Messages;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+
+import java.util.Arrays;
 
 public class RepairBoat extends Boat {
     public RepairBoat(int x, int y, int width, int height, Color color) {
         super(de.hsmw.kriegZurSee.constants.ID.RepairBoat,x,y,width,height, color);
     }
 
-    public void repair(final Boat toRepair, int index) {
+    public void repair(Boat toRepair, Point2D index) {
         if(isBoatDrowned() && toRepair.isBoatDrowned()){
             toRepair.getRepaired(index);
-        } /*else{
-            showDialog(Messages.BoatIsDrowned)
-        }*/
+            System.out.println(Arrays.toString(toRepair.getHitPointCounter()));
+        } else{
+            System.out.println(Messages.Error);
+        }
     }
 
     @Override
