@@ -33,7 +33,6 @@ public abstract class GameObject {
         return position.intersects(other.position.getX(), other.position.getY(), other.position.getWidth(), other.position.getHeight());
     }
 
-
     public Rectangle getPosition() {
         return position;
     }

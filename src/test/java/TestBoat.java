@@ -1,7 +1,7 @@
-import de.hsmw.kriegZurSee.GameObjects.BattleShip;
-import de.hsmw.kriegZurSee.GameObjects.Corsair;
-import de.hsmw.kriegZurSee.GameObjects.HeliLandingBoat;
-import de.hsmw.kriegZurSee.GameObjects.RepairBoat;
+import de.hsmw.kriegZurSee.GameObjects.boats.BattleShip;
+import de.hsmw.kriegZurSee.GameObjects.boats.Corsair;
+import de.hsmw.kriegZurSee.GameObjects.boats.HeliLandingBoat;
+import de.hsmw.kriegZurSee.GameObjects.boats.RepairBoat;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Assertions;

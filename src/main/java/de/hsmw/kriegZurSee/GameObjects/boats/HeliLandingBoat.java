@@ -1,4 +1,4 @@
-package de.hsmw.kriegZurSee.GameObjects;
+package de.hsmw.kriegZurSee.GameObjects.boats;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;

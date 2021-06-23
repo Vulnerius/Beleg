@@ -1,6 +1,6 @@
 package de.hsmw.kriegZurSee.constants;
 
-import de.hsmw.kriegZurSee.GameObjects.*;
+import de.hsmw.kriegZurSee.GameObjects.boats.*;
 import javafx.scene.paint.Color;
 
 public class BoatPlacements {

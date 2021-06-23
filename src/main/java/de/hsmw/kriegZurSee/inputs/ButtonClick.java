@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class ButtonClick {
+
+
     public static EventHandler<ActionEvent> onRestore() {
-        return event -> System.out.println("Restore");
+        return event -> Game.restoreActivePlayerShots();
     }
 
     public static EventHandler<ActionEvent> onChange() {

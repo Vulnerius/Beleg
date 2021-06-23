@@ -1,5 +1,6 @@
 package de.hsmw.kriegZurSee.GameObjects;
 
+import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.fieldLogic.FieldLogic;
 import javafx.geometry.Point2D;

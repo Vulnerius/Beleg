@@ -14,18 +14,31 @@ public class Game extends Application {
     public static Handler handler;
     private final Field field1;
     private final Field field2;
+    private static Player player1;
+    private static Player player2;
+
     public static int BOARD_WIDTH_HEIGHT = 240;
 
 
     public Game() {
-        field1 = new Field(ID.MyField, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
-        field2 = new Field(ID.EnemyField, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        field1 = new Field(ID.Player1Field, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        field2 = new Field(ID.Player2Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        player1 = new Player(field1, ID.Player1);
+        player2 = new Player(field2, ID.Player2);
+        player2.playerDidShoot();
+        player2.playerDidShoot();
+        player2.playerDidShoot();
+    }
+
+    public static void restoreActivePlayerShots() {
+        Player he = handler.game.getActivePlayer();
+        he.resetShotCount();
     }
 
     public boolean searchField(ID id, Point2D mouseClick) {
-        if (id.equals(ID.EnemyField))
+        if (id.equals(ID.Player2Field))
             return field2.searchForMatching(mouseClick);
-        else if (id.equals(ID.MyField))
+        else if (id.equals(ID.Player1Field))
             return field1.searchForMatching(mouseClick);
 
         return false;
@@ -42,6 +55,20 @@ public class Game extends Application {
         primaryStage.show();
     }
 
+    public void switchTurn(){
+        if(player1.getHasTurn()){
+            player1.setHasTurn();
+        } else
+            player2.setHasTurn();
+    }
+
+    public ID getPlayerTurn(){
+        if(player2.getHasTurn())
+            return player2.getID();
+        else
+            return player1.getID();
+    }
+
     public Field getField1() {
         return field1;
     }
@@ -50,7 +77,24 @@ public class Game extends Application {
         return field2;
     }
 
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
+
+    public Player getActivePlayer() {
+        ID playerID = getPlayerTurn();
+        if(playerID == ID.Player1)
+            return player1;
+        else
+            return player2;
+    }
+
 }

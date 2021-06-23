@@ -1,7 +1,7 @@
 package de.hsmw.kriegZurSee.userInterface;
 
 import de.hsmw.kriegZurSee.Game;
-import de.hsmw.kriegZurSee.GameObjects.Boat;
+import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.GameObjects.Field;
 import de.hsmw.kriegZurSee.inputs.ButtonClick;
 import de.hsmw.kriegZurSee.inputs.Handler;
@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -33,6 +34,7 @@ public class UserInterFace {
     private final Scene scene;
     private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
+    private Label shotCount;
 
     private final Circle referenceCircle;
 
@@ -68,6 +70,10 @@ public class UserInterFace {
         Button changeTurn = new Button("changeTurn");
         changeTurn.setOnAction(ButtonClick.onChange());
         buttonvBox.getChildren().add(changeTurn);
+        
+        shotCount = new Label();
+        shotCount.setText("ShotCount "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+        buttonvBox.getChildren().add(shotCount);
         buttonvBox.setPadding(new Insets(40, 15, 20, 140));
 
 
@@ -75,15 +81,7 @@ public class UserInterFace {
         sceneBP.setRight(buttonvBox);
 
         initializeUI();
-        setScene(scene);
-        show();
-    }
-
-    private void setScene(Scene scene) {
         stage.setScene(scene);
-    }
-
-    public void show() {
         stage.show();
     }
 
@@ -123,6 +121,8 @@ public class UserInterFace {
     }
 
     public void removeShot() {
+        game.switchTurn();
+        shotCount.setText("ShotCount "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         fieldAnchorPane.getChildren().removeIf(d -> d.getClass().equals(referenceCircle.getClass()));
     }
 
