@@ -24,15 +24,20 @@ public abstract class Boat extends GameObject {
     }
 
     public boolean isBoatDrowned() {
-        for (int temp : hitPointCounter) {
-            if (temp == 1)
-                return true;
+        int counter = 0;
+        int temp = 0;
+        while (counter < hitPointCounter.length) {
+            temp += hitPointCounter[counter];
+            counter++;
         }
-        return false;
+
+        return temp == hitPointCounter.length;
     }
 
     public boolean didIGotHit(Point2D point) {
         if (getPosition().intersects(point.getX(), point.getY(), 0.1, 0.1)) {
+            if (isBoatDrowned())
+                return false;
             if (checkIsVert()) {
                 if (hitPointCounter[(int) ((getPosition().getX() + getPosition().getWidth() - point.getX()) / 40)] == 1) {
                     return false;
@@ -41,7 +46,7 @@ public abstract class Boat extends GameObject {
                     return true;
                 }
             } else {
-                if(hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - point.getY()) / 40)] == 1)
+                if (hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - point.getY()) / 40)] == 1)
                     return false;
                 else {
                     hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - point.getY()) / 40)] = 1;

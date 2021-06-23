@@ -3,14 +3,12 @@ package de.hsmw.kriegZurSee.GameObjects;
 import de.hsmw.kriegZurSee.constants.ID;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
-
 
 public abstract class GameObject {
     private final ID ID;
     protected final Rectangle position;
     //hasCooldown here so a Field can switch on UserTurn
-    private boolean hasCooldown = false;
+    public static boolean hasCooldown = false;
 
 
     public GameObject(ID id, int x, int y, double width, double height, javafx.scene.paint.Color color) {
@@ -21,10 +19,13 @@ public abstract class GameObject {
 
     public abstract void tick();
 
+    public void setHasCooldown(){
+        hasCooldown = !hasCooldown;
+    }
+
     public void setPos(int x, int y) {
         position.setX(x);
         position.setY(y);
-
     }
 
 
@@ -40,5 +41,6 @@ public abstract class GameObject {
     public de.hsmw.kriegZurSee.constants.ID getID() {
         return ID;
     }
+
 
 }
