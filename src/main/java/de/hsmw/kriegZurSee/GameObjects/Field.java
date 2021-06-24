@@ -1,13 +1,11 @@
 package de.hsmw.kriegZurSee.GameObjects;
 
 import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
-import de.hsmw.kriegZurSee.Utilities.Utilis;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.fieldLogic.FieldLogic;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -47,9 +45,15 @@ public class Field extends GameObject {
     }
     public Circle getBoatPos(){
         Random i = new Random();
-        Boat discovered =boats[i.nextInt(boats.length)];
-        Circle r = new Circle(discovered.getPosition().getX() +10 ,discovered.getPosition().getY() +10,10);
-        return r;
+        Boat discovered;
+        int found = i.nextInt(boats.length);
+        if(boats[found].getID() != ID.HeliLandingBoat){
+            discovered = boats[found];
+        }
+        else {
+            discovered = boats[1];
+        }
+        return new Circle(discovered.getPosition().getX() +15 ,discovered.getPosition().getY() +15,10);
     }
 
     @Override

@@ -7,7 +7,6 @@ import de.hsmw.kriegZurSee.inputs.ButtonClick;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -109,7 +108,7 @@ public class UserInterFace {
             Rectangle verticalLine = getLine(x + 40 * index, y, BOARD_WIDTH_HEIGHT, 2);
             Rectangle horizontalLine = getLine(x, y + 40 * index, 2, BOARD_WIDTH_HEIGHT);
             /*
-            adding children to VBox
+            adding lines to AnchorPane
              */
             fieldVBox.getChildren().addAll(verticalLine, horizontalLine);
         }
@@ -144,7 +143,7 @@ public class UserInterFace {
     }
 
     public void drawSearchPT(Circle boatPos) {
-        boatPos.setFill(Color.GREEN);
+        boatPos.setFill(Color.DARKBLUE);
         fieldAnchorPane.getChildren().add(boatPos);
     }
 }
