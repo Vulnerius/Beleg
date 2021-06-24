@@ -1,6 +1,7 @@
 package de.hsmw.kriegZurSee.GameObjects.boats;
 
 import de.hsmw.kriegZurSee.GameObjects.GameObject;
+import de.hsmw.kriegZurSee.Utilities.Utilis;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -20,43 +21,31 @@ public abstract class Boat extends GameObject {
         Arrays.fill(hitPointCounter, 0);
     }
 
-    private boolean checkIsVert() {
+    public boolean checkIsVert() {
         return position.getWidth() > position.getHeight();
     }
 
     public boolean isBoatDrowned() {
         int counter = 0;
-        int temp = 0;
-        while (counter < hitPointCounter.length) {
-            temp += hitPointCounter[counter];
-            counter++;
+        for (int temp = 0; temp < hitPointCounter.length; temp++) {
+            counter += hitPointCounter[counter];
         }
-
-        return temp == hitPointCounter.length;
+        return counter == hitPointCounter.length;
     }
 
     public boolean didIGotHit(Point2D point) {
         if (getPosition().intersects(point.getX(), point.getY(), 0.1, 0.1)) {
-            if (isBoatDrowned())
-                return false;
-            if (checkIsVert()) {
-                if (hitPointCounter[(int) ((getPosition().getX() + getPosition().getWidth() - point.getX()) / 40)] == 1) {
-                    return false;
-                } else {
-                    hitPointCounter[(int) ((getPosition().getX() + getPosition().getWidth() - point.getX()) / 40)] = 1;
-                    return true;
-                }
-            } else {
-                if (hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - point.getY()) / 40)] == 1)
-                    return false;
-                else {
-                    hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - point.getY()) / 40)] = 1;
-                    return true;
-                }
-            }
-
+            addHitPoint(Utilis.pointToIndex(this, point));
+            return true;
         }
         return false;
+    }
+
+
+    protected void addHitPoint(int i) {
+        if (!isBoatDrowned()) {
+            hitPointCounter[i] = 1;
+        }
     }
 
     public int[] getHitPointCounter() {
@@ -64,9 +53,6 @@ public abstract class Boat extends GameObject {
     }
 
     public void getRepaired(Point2D mouseClick) {
-        if (checkIsVert()) {
-            hitPointCounter[(int) ((getPosition().getX() + getPosition().getWidth() - mouseClick.getX()) / 40)] = 0;
-        } else
-            hitPointCounter[(int) (((getPosition().getY() + getPosition().getHeight()) - mouseClick.getY()) / 40)] = 0;
+        hitPointCounter[Utilis.pointToIndex(this, mouseClick)] = 0;
     }
 }

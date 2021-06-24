@@ -28,17 +28,17 @@ public class MouseInput {
 
                 //getting active player -> repair on ownFieldInput
                 if (game.getPlayerTurn() == ID.Player1) {
-                    if (game.getPlayer1().canRepair()){
+                    if (game.getPlayer1().canRepair()) {
                         game.getPlayer1().repair(mouseClick);
-                    System.out.println("anything");}
-                }
-                //active Player : player2 :: shoot
-                else if (game.getPlayerTurn() == ID.Player2) {
-                    game.getPlayer2().playerDidShoot();
-                    if (game.searchField(ID.Player1Field, mouseClick)) {
-                        Game.ui.drawCircle(x, y);
-                    } else {
-                        Game.ui.drawMissCircle(x, y);
+                    }
+                    //active Player : player2 :: shoot
+                    else if (game.getPlayerTurn() == ID.Player2) {
+                        game.getPlayer2().playerDidShoot();
+                        if (game.searchField(ID.Player1Field, mouseClick)) {
+                            Game.ui.drawCircle(x, y);
+                        } else {
+                            Game.ui.drawMissCircle(x, y);
+                        }
                     }
                 }
             }

@@ -51,10 +51,12 @@ public class Player {
         RepairBoat repairing = null;
         Boat toRepair = null;
 
-        for (Boat b : field.getBoats()) {
+        for(Boat b : field.getBoats()){
             if (b.didIGotHit(mouseclick)) {
                 toRepair = b;
             }
+        }
+        for (Boat b : field.getBoats()) {
             if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned()) {
                 repairing = (RepairBoat) b;
             }

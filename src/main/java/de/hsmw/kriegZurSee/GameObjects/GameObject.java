@@ -1,12 +1,14 @@
 package de.hsmw.kriegZurSee.GameObjects;
 
 import de.hsmw.kriegZurSee.constants.ID;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
 public abstract class GameObject {
     private final ID ID;
     protected final Rectangle position;
+    private Color color;
     //hasCooldown here so a Field can switch on UserTurn
     public static boolean hasCooldown = false;
 
@@ -15,6 +17,7 @@ public abstract class GameObject {
         this.ID = id;
         position = new Rectangle(x, y, width, height);
         position.setFill(color);
+        this.color = color;
     }
 
     public abstract void tick();
@@ -28,6 +31,9 @@ public abstract class GameObject {
         position.setY(y);
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public boolean collidesWith(GameObject other) {
         return position.intersects(other.position.getX(), other.position.getY(), other.position.getWidth(), other.position.getHeight());

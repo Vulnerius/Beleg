@@ -1,5 +1,6 @@
 package de.hsmw.kriegZurSee.Utilities;
 
+import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import javafx.geometry.Point2D;
 
 public interface Utilis {
@@ -11,4 +12,10 @@ public interface Utilis {
         return new Point2D((int) (start + (Math.random() * (end-start))), ((int) (start + (Math.random() * (end-start)))));
     }
 
+    static int pointToIndex(Boat bo, Point2D point){
+        if(bo.checkIsVert()){
+            return (int) ((bo.getPosition().getX() + bo.getPosition().getWidth() - point.getX()) / 40);
+        }
+        else return (int) (((bo.getPosition().getY() + bo.getPosition().getHeight()) - point.getY()) / 40);
+    }
 }
