@@ -21,6 +21,10 @@ public abstract class Boat extends GameObject {
         Arrays.fill(hitPointCounter, 0);
     }
 
+    public double getLength() {
+        return length;
+    }
+
     public boolean checkIsVert() {
         return position.getWidth() > position.getHeight();
     }

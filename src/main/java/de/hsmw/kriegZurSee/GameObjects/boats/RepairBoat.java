@@ -12,7 +12,6 @@ public class RepairBoat extends Boat {
     public void repair(Boat toRepair, Point2D index) {
         if(!isBoatDrowned() && !toRepair.isBoatDrowned()){
             toRepair.getRepaired(index);
-            System.out.println("DONE");
         } else{
             System.out.println(Messages.Error);
         }

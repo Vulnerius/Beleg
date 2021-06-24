@@ -7,6 +7,7 @@ import de.hsmw.kriegZurSee.inputs.ButtonClick;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -52,6 +53,11 @@ public class UserInterFace {
         fieldAnchorPane = new AnchorPane();
         fieldAnchorPane.getChildren().addAll(game.getField1().getPosition(), game.getField2().getPosition());
         fieldAnchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
+        VBox labels = new VBox(280);
+        Label field1 = new Label("Player 1 Field");
+        Label field2 = new Label("Player 2 Field");
+        labels.getChildren().addAll(field1,field2);
+        fieldAnchorPane.getChildren().add(labels);
         for (Boat b : game.getField1().getBoats()) {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
@@ -59,12 +65,13 @@ public class UserInterFace {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
 
-        VBox buttonvBox = new VBox(75);
+        VBox buttonvBox = new VBox(25);
         buttonvBox.setAlignment(Pos.BASELINE_RIGHT);
 
         Button restore = new Button("restore");
         restore.setOnAction(ButtonClick.onRestore());
         Button searchPt = new Button("searchPt");
+        searchPt.setOnAction(ButtonClick.onSearch());
 
         buttonvBox.getChildren().addAll(restore, searchPt);
         Button changeTurn = new Button("changeTurn");
@@ -134,5 +141,10 @@ public class UserInterFace {
         Circle miss = new Circle(x, y, 10);
         miss.setFill(Color.DARKRED);
         fieldAnchorPane.getChildren().add(miss);
+    }
+
+    public void drawSearchPT(Circle boatPos) {
+        boatPos.setFill(Color.GREEN);
+        fieldAnchorPane.getChildren().add(boatPos);
     }
 }

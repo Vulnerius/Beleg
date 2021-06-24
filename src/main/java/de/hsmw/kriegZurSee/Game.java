@@ -31,6 +31,16 @@ public class Game extends Application {
     public static void restoreActivePlayerShots() {
         Player he = handler.game.getActivePlayer();
         he.resetShotCount();
+        he.setHasShot(false);
+    }
+
+    public static void searchFor() {
+        Player he = handler.game.getActivePlayer();
+        if(he == player1)
+            he = player2;
+        else
+            he=player1;
+        ui.drawSearchPT(he.getField().getBoatPos());
     }
 
     public boolean searchField(ID id, Point2D mouseClick) {
@@ -38,7 +48,6 @@ public class Game extends Application {
             return field2.searchForMatching(mouseClick);
         else if (id.equals(ID.Player1Field))
             return field1.searchForMatching(mouseClick);
-
         return false;
     }
 
@@ -53,18 +62,21 @@ public class Game extends Application {
         primaryStage.show();
     }
 
-    public void switchTurn(){
-        if(getActivePlayer() == player1){
-            player1.setHasTurn();
-            player2.setHasTurn();
-        } else{
-            player2.setHasTurn();
-            player1.setHasTurn();
+    public void switchTurn() {
+        player1.setHasTurn();
+        if(player1.getHasTurn()) {
+            player1.setHasShot(false);
+            player2.updateHLB();
+        }
+        player2.setHasTurn();
+        if(player2.getHasTurn()) {
+            player2.setHasShot(false);
+            player1.updateHLB();
         }
     }
 
-    public ID getPlayerTurn(){
-        if(player2.getHasTurn())
+    public ID getPlayerTurn() {
+        if (player2.getHasTurn())
             return player2.getID();
         else
             return player1.getID();
@@ -92,7 +104,7 @@ public class Game extends Application {
 
     public Player getActivePlayer() {
         ID playerID = getPlayerTurn();
-        if(playerID == ID.Player1)
+        if (playerID == ID.Player1)
             return player1;
         else
             return player2;

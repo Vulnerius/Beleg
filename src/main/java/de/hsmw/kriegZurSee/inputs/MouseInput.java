@@ -34,10 +34,12 @@ public class MouseInput {
                     }
                 }
                 //active Player : player2 :: shoot
-                if (game.getPlayerTurn() == ID.Player2) {
+                if (game.getPlayerTurn() == ID.Player2 && !game.getPlayer2().isHasShot()) {
                     game.getPlayer2().playerDidShoot();
+                    game.getPlayer2().setHasShot(true);
                     if (game.searchField(ID.Player1Field, mouseClick)) {
                         Game.ui.drawHitCircle(x, y);
+                        game.getPlayer2().setHasShot(false);
                     } else {
                         Game.ui.drawMissCircle(x, y);
                     }
@@ -53,10 +55,12 @@ public class MouseInput {
                     }
                 }
                 // player 1 shoots
-                if (game.getPlayerTurn() == ID.Player1) {
+                if (game.getPlayerTurn() == ID.Player1 && !game.getPlayer1().isHasShot()) {
                     game.getPlayer1().playerDidShoot();
+                    game.getPlayer1().setHasShot(true);
                     if (game.searchField(ID.Player2Field, mouseClick)) {
                         Game.ui.drawHitCircle(x, y);
+                        game.getPlayer1().setHasShot(false);
                     } else {
                         Game.ui.drawMissCircle(x, y);
                     }

@@ -14,4 +14,7 @@ public class ButtonClick {
     public static EventHandler<ActionEvent> onChange() {
         return event -> Game.ui.removeShot();
     }
+    public static EventHandler<ActionEvent> onSearch() {
+        return event -> Game.searchFor();
+    }
 }
