@@ -35,17 +35,18 @@ public abstract class Boat extends GameObject {
 
     public boolean didIGotHit(Point2D point) {
         if (getPosition().intersects(point.getX(), point.getY(), 0.1, 0.1)) {
-            addHitPoint(Utilis.pointToIndex(this, point));
-            return true;
+            return addHitPoint(Utilis.pointToIndex(this, point));
         }
         return false;
     }
 
 
-    protected void addHitPoint(int i) {
+    protected boolean addHitPoint(int i) {
         if (!isBoatDrowned()) {
             hitPointCounter[i] = 1;
+            return true;
         }
+        return false;
     }
 
     public int[] getHitPointCounter() {

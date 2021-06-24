@@ -114,7 +114,7 @@ public class UserInterFace {
         return line;
     }
 
-    public void drawCircle(int x, int y) {
+    public void drawHitCircle(int x, int y) {
         Circle shot = new Circle(x, y, 10);
         shot.setFill(Color.WHITESMOKE);
         fieldAnchorPane.getChildren().add(shot);

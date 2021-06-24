@@ -3,7 +3,6 @@ import de.hsmw.kriegZurSee.constants.Messages;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
-import java.util.Arrays;
 
 public class RepairBoat extends Boat {
     public RepairBoat(int x, int y, int width, int height, Color color) {
@@ -11,9 +10,9 @@ public class RepairBoat extends Boat {
     }
 
     public void repair(Boat toRepair, Point2D index) {
-        if(isBoatDrowned() && toRepair.isBoatDrowned()){
+        if(!isBoatDrowned() && !toRepair.isBoatDrowned()){
             toRepair.getRepaired(index);
-            System.out.println(Arrays.toString(toRepair.getHitPointCounter()));
+            System.out.println("DONE");
         } else{
             System.out.println(Messages.Error);
         }

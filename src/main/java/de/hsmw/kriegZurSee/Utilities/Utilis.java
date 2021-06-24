@@ -14,7 +14,7 @@ public interface Utilis {
 
     static int pointToIndex(Boat bo, Point2D point){
         if(bo.checkIsVert()){
-            return (int) ((bo.getPosition().getX() + bo.getPosition().getWidth() - point.getX()) / 40);
+            return (int) ((bo.getPosition().getX() + bo.getPosition().getWidth() - point.getX()) /40 );
         }
         else return (int) (((bo.getPosition().getY() + bo.getPosition().getHeight()) - point.getY()) / 40);
     }

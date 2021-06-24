@@ -32,7 +32,7 @@ public class Field extends GameObject {
         for (int i = 0; i < boats.length; i++) {
             if( boats[i].didIGotHit(mouseclick) ) {
                 System.out.println(Arrays.toString(boats[i].getHitPointCounter()));
-                return true;
+                 return true;
             }
         }
         return false;

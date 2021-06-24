@@ -25,9 +25,7 @@ public class Game extends Application {
         field2 = new Field(ID.Player2Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         player1 = new Player(field1, ID.Player1);
         player2 = new Player(field2, ID.Player2);
-        player2.playerDidShoot();
-        player2.playerDidShoot();
-        player2.playerDidShoot();
+        player1.setHasTurn();
     }
 
     public static void restoreActivePlayerShots() {
@@ -56,10 +54,13 @@ public class Game extends Application {
     }
 
     public void switchTurn(){
-        if(player1.getHasTurn()){
+        if(getActivePlayer() == player1){
             player1.setHasTurn();
-        } else
             player2.setHasTurn();
+        } else{
+            player2.setHasTurn();
+            player1.setHasTurn();
+        }
     }
 
     public ID getPlayerTurn(){
