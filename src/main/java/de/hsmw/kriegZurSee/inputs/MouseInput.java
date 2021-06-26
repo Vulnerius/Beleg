@@ -1,6 +1,7 @@
 package de.hsmw.kriegZurSee.inputs;
 
 import de.hsmw.kriegZurSee.Game;
+import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.constants.ID;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
@@ -40,8 +41,11 @@ public class MouseInput {
                     if (game.searchField(ID.Player1Field, mouseClick)) {
                         Game.ui.drawHitCircle(x, y);
                         game.getPlayer2().setHasShot(false);
+                        Game.ui.tOUT.setText("You Hit");
                     } else {
                         Game.ui.drawMissCircle(x, y);
+                        Game.ui.tOUT.setText("You Missed");
+                        game.switchTurn();
                     }
                 }
             }
@@ -52,7 +56,9 @@ public class MouseInput {
                 if (game.getPlayerTurn() == ID.Player2) {
                     if (game.getPlayer2().canRepair()) {
                         game.getPlayer2().repair(mouseClick);
-                    }
+                        Game.ui.tOUT.setText("repaired");
+                    } else
+                        Game.ui.tOUT.setText("nothing to be repaired");
                 }
                 // player 1 shoots
                 if (game.getPlayerTurn() == ID.Player1 && !game.getPlayer1().isHasShot()) {
@@ -60,9 +66,12 @@ public class MouseInput {
                     game.getPlayer1().setHasShot(true);
                     if (game.searchField(ID.Player2Field, mouseClick)) {
                         Game.ui.drawHitCircle(x, y);
+                        Game.ui.tOUT.setText("You Hit");
                         game.getPlayer1().setHasShot(false);
                     } else {
                         Game.ui.drawMissCircle(x, y);
+                        Game.ui.tOUT.setText("You Missed");
+                        game.switchTurn();
                     }
                 }
             }

@@ -11,8 +11,8 @@ public class ButtonClick {
         return event -> Game.restoreActivePlayerShots();
     }
 
-    public static EventHandler<ActionEvent> onChange() {
-        return event -> Game.ui.removeShot();
+    public static EventHandler<ActionEvent> onShoot5() {
+        return event -> Game.playerShoots5();
     }
     public static EventHandler<ActionEvent> onSearch() {
         return event -> Game.searchFor();

@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -34,6 +35,7 @@ public class UserInterFace {
     private final Scene scene;
     private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
+    public final TextField tOUT;
     private Label shotCount;
 
     private final Circle referenceCircle;
@@ -73,13 +75,16 @@ public class UserInterFace {
         searchPt.setOnAction(ButtonClick.onSearch());
 
         buttonBox.getChildren().addAll(restore, searchPt);
-        Button changeTurn = new Button("changeTurn");
-        changeTurn.setOnAction(ButtonClick.onChange());
-        buttonBox.getChildren().add(changeTurn);
-        
+        Button shoot5 = new Button("shoot 5 shots");
+        shoot5.setOnAction(ButtonClick.onShoot5());
+        buttonBox.getChildren().add(shoot5);
         shotCount = new Label();
         shotCount.setText("ShotCount "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         buttonBox.getChildren().add(shotCount);
+
+        tOUT = new TextField();
+        tOUT.setAlignment(Pos.BASELINE_RIGHT);
+        buttonBox.getChildren().add(tOUT);
         buttonBox.setPadding(new Insets(40, 15, 20, 140));
 
 
@@ -127,7 +132,6 @@ public class UserInterFace {
     }
 
     public void removeShot() {
-        game.switchTurn();
         shotCount.setText("ShotCount "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         fieldAnchorPane.getChildren().removeIf(d -> d.getClass().equals(referenceCircle.getClass()));
     }

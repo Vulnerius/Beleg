@@ -2,6 +2,7 @@ package de.hsmw.kriegZurSee.GameObjects;
 
 import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.GameObjects.boats.HeliLandingBoat;
+import de.hsmw.kriegZurSee.Utilities.Utilis;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.fieldLogic.FieldLogic;
 import javafx.geometry.Point2D;
@@ -15,17 +16,15 @@ import java.util.Random;
 public class Field extends GameObject {
 
     private final Boat[] boats;
-    private final ID id;
-
 
     public Field(de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
         super(id, x, y, width, height, Color.BLUE);
-        this.id = id;
         boats = FieldLogic.setBoats(id);
     }
-    public void updateField(){
+
+    public void updateField() {
         updateBS_HLB();
-        for(Boat b : boats){
+        for (Boat b : boats) {
             b.isBoatDrowned();
         }
     }
@@ -43,13 +42,10 @@ public class Field extends GameObject {
         }
     }
 
-    public de.hsmw.kriegZurSee.constants.ID getID() {
-        return id;
-    }
-
     public boolean searchForMatching(Point2D mouseclick) {
         for (Boat boat : boats) {
-            if (boat.didIGotHit(mouseclick)) {
+            if (boat.didIGotHit(mouseclick) && boat.getHitPointCounter()[Utilis.pointToIndex(boat, mouseclick)] == 0) {
+                boat.addHitPoint(mouseclick);
                 System.out.println(Arrays.toString(boat.getHitPointCounter()));
                 return true;
             }

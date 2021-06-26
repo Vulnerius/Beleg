@@ -1,9 +1,7 @@
 package de.hsmw.kriegZurSee;
 
 import de.hsmw.kriegZurSee.GameObjects.Field;
-import de.hsmw.kriegZurSee.GameObjects.boats.BattleShip;
 import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
-import de.hsmw.kriegZurSee.GameObjects.boats.HeliLandingBoat;
 import de.hsmw.kriegZurSee.GameObjects.boats.RepairBoat;
 import de.hsmw.kriegZurSee.constants.ID;
 import javafx.geometry.Point2D;
@@ -15,6 +13,7 @@ public class Player {
     private boolean hasTurn = false;
     private final Field field;
     private boolean hasShot = false;
+    boolean shoots5 = false;
 
     public Player(Field field, ID id) {
         this.field = field;
@@ -23,6 +22,13 @@ public class Player {
 
     public Field getField() {
         return field;
+    }
+    public void setShoots5(){
+        shoots5 = !shoots5;
+    }
+
+    public boolean isShoots5() {
+        return shoots5;
     }
 
     public void setHasTurn() {

@@ -1,5 +1,6 @@
 package de.hsmw.kriegZurSee.GameObjects.boats;
 
+import de.hsmw.kriegZurSee.Game;
 import de.hsmw.kriegZurSee.GameObjects.GameObject;
 import de.hsmw.kriegZurSee.Utilities.Utilis;
 import javafx.geometry.Point2D;
@@ -42,19 +43,13 @@ public abstract class Boat extends GameObject {
     }
 
     public boolean didIGotHit(Point2D point) {
-        if (getPosition().intersects(point.getX(), point.getY(), 0.1, 0.1)) {
-            return addHitPoint(Utilis.pointToIndex(this, point));
-        }
-        return false;
+        return getPosition().intersects(point.getX(), point.getY(), 0.1, 0.1);
     }
 
-
-    protected boolean addHitPoint(int i) {
-        if (!isBoatDrowned()) {
-            hitPointCounter[i] = 1;
-            return true;
+    public void addHitPoint(Point2D p0) {
+        if(!isBoatDrowned()&&didIGotHit(p0)) {
+            hitPointCounter[Utilis.pointToIndex(this,p0)] = 1;
         }
-        return false;
     }
 
     public int[] getHitPointCounter() {
@@ -63,5 +58,6 @@ public abstract class Boat extends GameObject {
 
     public void getRepaired(Point2D mouseClick) {
         hitPointCounter[Utilis.pointToIndex(this, mouseClick)] = 0;
+        Game.ui.tOUT.setText("repaired");
     }
 }

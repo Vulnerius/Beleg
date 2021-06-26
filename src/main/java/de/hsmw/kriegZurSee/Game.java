@@ -1,6 +1,7 @@
 package de.hsmw.kriegZurSee;
 
 import de.hsmw.kriegZurSee.GameObjects.Field;
+import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import de.hsmw.kriegZurSee.userInterface.UserInterFace;
@@ -32,23 +33,38 @@ public class Game extends Application {
     public static void restoreActivePlayerShots() {
         Player he = handler.game.getActivePlayer();
         he.resetShotCount();
-        he.setHasShot(false);
+        handler.game.switchTurn();
     }
 
     public static void searchFor() {
-        Player he = handler.game.getActivePlayer();
-        if(he == player1)
-            he = player2;
-        else
-            he=player1;
-        ui.drawSearchPT(he.getField().getBoatPos());
+        Player playerToSearch = handler.game.getActivePlayer();
+        boolean canSearch = false;
+        for (Boat b : playerToSearch.getField().getBoats()) {
+            if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned())
+                canSearch = true;
+        }
+        // active Player is searching the inactive Players Field
+        if (canSearch) {
+            if (playerToSearch == player1)
+                playerToSearch = player2;
+            else
+                playerToSearch = player1;
+            ui.drawSearchPT(playerToSearch.getField().getBoatPos());
+        }
+    }
+
+    public static void playerShoots5() {
+        for (int temp = 0; temp < 5; temp++) {
+            handler.game.getActivePlayer().setHasShot(false);
+        }
     }
 
     public boolean searchField(ID id, Point2D mouseClick) {
-        if (id.equals(ID.Player2Field))
+        if (id.equals(ID.Player2Field)) {
             return field2.searchForMatching(mouseClick);
-        else if (id.equals(ID.Player1Field))
+        } else if (id.equals(ID.Player1Field)) {
             return field1.searchForMatching(mouseClick);
+        }
         return false;
     }
 
@@ -65,15 +81,16 @@ public class Game extends Application {
 
     public void switchTurn() {
         player1.setHasTurn();
-        if(player1.getHasTurn()) {
+        if (player1.getHasTurn()) {
             player1.setHasShot(false);
             player1.getField().updateField();
         }
         player2.setHasTurn();
-        if(player2.getHasTurn()) {
+        if (player2.getHasTurn()) {
             player2.setHasShot(false);
             player2.getField().updateField();
         }
+        ui.removeShot();
     }
 
     public ID getPlayerTurn() {
