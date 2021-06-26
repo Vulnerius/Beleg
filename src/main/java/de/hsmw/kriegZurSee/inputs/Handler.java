@@ -17,6 +17,5 @@ public class Handler implements EventHandler {
         if (event.getEventType().getName().equals("MOUSE_CLICKED")) {
             new MouseInput(game,(javafx.scene.input.MouseEvent) event);
         }
-
     }
 }

@@ -64,27 +64,27 @@ public class UserInterFace {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
 
-        VBox buttonvBox = new VBox(25);
-        buttonvBox.setAlignment(Pos.BASELINE_RIGHT);
+        VBox buttonBox = new VBox(25);
+        buttonBox.setAlignment(Pos.BASELINE_RIGHT);
 
         Button restore = new Button("restore");
         restore.setOnAction(ButtonClick.onRestore());
         Button searchPt = new Button("searchPt");
         searchPt.setOnAction(ButtonClick.onSearch());
 
-        buttonvBox.getChildren().addAll(restore, searchPt);
+        buttonBox.getChildren().addAll(restore, searchPt);
         Button changeTurn = new Button("changeTurn");
         changeTurn.setOnAction(ButtonClick.onChange());
-        buttonvBox.getChildren().add(changeTurn);
+        buttonBox.getChildren().add(changeTurn);
         
         shotCount = new Label();
         shotCount.setText("ShotCount "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
-        buttonvBox.getChildren().add(shotCount);
-        buttonvBox.setPadding(new Insets(40, 15, 20, 140));
+        buttonBox.getChildren().add(shotCount);
+        buttonBox.setPadding(new Insets(40, 15, 20, 140));
 
 
         sceneBP.setCenter(fieldAnchorPane);
-        sceneBP.setRight(buttonvBox);
+        sceneBP.setRight(buttonBox);
 
         initializeUI();
         stage.setScene(scene);

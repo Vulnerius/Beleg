@@ -28,6 +28,7 @@ public class Game extends Application {
         player1.setHasTurn();
     }
 
+
     public static void restoreActivePlayerShots() {
         Player he = handler.game.getActivePlayer();
         he.resetShotCount();
@@ -66,12 +67,12 @@ public class Game extends Application {
         player1.setHasTurn();
         if(player1.getHasTurn()) {
             player1.setHasShot(false);
-            player2.updateHLB();
+            player1.getField().updateField();
         }
         player2.setHasTurn();
         if(player2.getHasTurn()) {
             player2.setHasShot(false);
-            player1.updateHLB();
+            player2.getField().updateField();
         }
     }
 

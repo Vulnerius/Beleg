@@ -67,6 +67,8 @@ public class MouseInput {
                 }
             }
         }
+        game.getField1().updateField();
+        game.getField2().updateField();
     }
 
 }

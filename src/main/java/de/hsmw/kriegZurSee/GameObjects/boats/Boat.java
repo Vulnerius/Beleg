@@ -34,7 +34,11 @@ public abstract class Boat extends GameObject {
         for (int temp = 0; temp < hitPointCounter.length; temp++) {
             counter += hitPointCounter[counter];
         }
-        return counter == hitPointCounter.length;
+        if (counter == hitPointCounter.length) {
+            setColor(Color.RED);
+            return true;
+        }
+        return false;
     }
 
     public boolean didIGotHit(Point2D point) {

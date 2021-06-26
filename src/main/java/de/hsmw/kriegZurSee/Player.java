@@ -88,16 +88,5 @@ public class Player {
                 if (!b.isBoatDrowned())
                     shotCount = 15;
     }
-    public void updateHLB(){
-        boolean bsDrowned = false;
-        HeliLandingBoat hlb = null;
-        for (Boat b : field.getBoats()) {
-            if (b.getID() == ID.BattleShip)
-                bsDrowned = b.isBoatDrowned();
-            if (b.getID() == ID.HeliLandingBoat)
-                hlb = (HeliLandingBoat) b;
-        }
-        if(bsDrowned && hlb != null)
-            hlb.bsIsDestroyed();
-    }
+
 }

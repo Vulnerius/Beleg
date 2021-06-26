@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 public abstract class GameObject {
     private final ID ID;
     protected final Rectangle position;
-    private Color color;
     //hasCooldown here so a Field can switch on UserTurn
     public static boolean hasCooldown = false;
 
@@ -17,7 +16,6 @@ public abstract class GameObject {
         this.ID = id;
         position = new Rectangle(x, y, width, height);
         position.setFill(color);
-        this.color = color;
     }
 
     public abstract void tick();
@@ -30,9 +28,15 @@ public abstract class GameObject {
         position.setX(x);
         position.setY(y);
     }
+    public void setPos(int x, int y,int width,int height) {
+        position.setX(x);
+        position.setY(y);
+        position.setWidth(width);
+        position.setHeight(height);
+    }
 
     public void setColor(Color color) {
-        this.color = color;
+        position.setFill(color);
     }
 
     public boolean collidesWith(GameObject other) {
