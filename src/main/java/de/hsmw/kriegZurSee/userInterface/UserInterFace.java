@@ -36,7 +36,7 @@ public class UserInterFace {
     private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
     public final TextField tOUT;
-    private Label shotCount;
+    private final Label shotCount;
 
     private final Circle referenceCircle;
 
@@ -128,6 +128,7 @@ public class UserInterFace {
     public void drawHitCircle(int x, int y) {
         Circle shot = new Circle(x, y, 10);
         shot.setFill(Color.WHITESMOKE);
+        tOUT.setText("HIT");
         fieldAnchorPane.getChildren().add(shot);
     }
 
@@ -144,6 +145,7 @@ public class UserInterFace {
         Circle miss = new Circle(x, y, 10);
         miss.setFill(Color.DARKRED);
         fieldAnchorPane.getChildren().add(miss);
+        tOUT.setText("Miss");
     }
 
     public void drawSearchPT(Circle boatPos) {

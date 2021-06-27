@@ -3,6 +3,7 @@ package de.hsmw.kriegZurSee;
 import de.hsmw.kriegZurSee.GameObjects.Field;
 import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.GameObjects.boats.RepairBoat;
+import de.hsmw.kriegZurSee.Utilities.Utilis;
 import de.hsmw.kriegZurSee.constants.ID;
 import javafx.geometry.Point2D;
 
@@ -13,7 +14,6 @@ public class Player {
     private boolean hasTurn = false;
     private final Field field;
     private boolean hasShot = false;
-    boolean shoots5 = false;
 
     public Player(Field field, ID id) {
         this.field = field;
@@ -22,13 +22,6 @@ public class Player {
 
     public Field getField() {
         return field;
-    }
-    public void setShoots5(){
-        shoots5 = !shoots5;
-    }
-
-    public boolean isShoots5() {
-        return shoots5;
     }
 
     public void setHasTurn() {
@@ -71,22 +64,26 @@ public class Player {
 
     public void repair(Point2D mouseclick) {
         RepairBoat repairing = null;
-        Boat toRepair = null;
+        Boat toRepair = field.searchForAliveBoat(mouseclick);
 
-        for(Boat b : field.getBoats()){
-            if (b.didIGotHit(mouseclick)) {
-                toRepair = b;
-            }
-        }
         for (Boat b : field.getBoats()) {
             if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned()) {
                 repairing = (RepairBoat) b;
             }
         }
-        if (repairing != null && toRepair != null)
-            repairing.repair(toRepair, mouseclick);
+        if (repairing != null && toRepair != null) {
+            if (toRepair.getHitPointCounter()[Utilis.pointToIndex(repairing, mouseclick)] == 1) {
+                repairing.repair(toRepair, mouseclick);
+                repairing.setHasCooldown();
+                Game.ui.tOUT.setText("repaired");
+            }
+            Game.ui.tOUT.setText("nothing to be repaired");
+        }
     }
 
+    public ID getFieldID() {
+        return field.getID();
+    }
 
     public void resetShotCount() {
         for (Boat b : field.getBoats())

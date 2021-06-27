@@ -1,5 +1,6 @@
 package de.hsmw.kriegZurSee.GameObjects;
 
+import de.hsmw.kriegZurSee.Game;
 import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.GameObjects.boats.HeliLandingBoat;
 import de.hsmw.kriegZurSee.Utilities.Utilis;
@@ -16,42 +17,54 @@ import java.util.Random;
 public class Field extends GameObject {
 
     private final Boat[] boats;
+    private final Game game;
 
-    public Field(de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
+    public Field(Game game, de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
         super(id, x, y, width, height, Color.BLUE);
         boats = FieldLogic.setBoats(id);
+        this.game = game;
     }
 
     public void updateField() {
         updateBS_HLB();
         for (Boat b : boats) {
             b.isBoatDrowned();
+            if (b.isHasCooldown())
+                b.setHasCooldown();
         }
     }
 
     private void updateBS_HLB() {
-        boolean hoya = false;
+        boolean bsIsDead = false;
         for (Boat b : boats) {
             if (b.getID() == ID.BattleShip && b.isBoatDrowned())
-                hoya = true;
+                bsIsDead = true;
             if (b.getID() == ID.HeliLandingBoat) {
-                if (hoya) {
+                if (bsIsDead) {
                     ((HeliLandingBoat) b).bsIsDestroyed();
                 }
             }
         }
     }
 
-    public boolean searchForMatching(Point2D mouseclick) {
+    private boolean searchingForMouseClickInField(Point2D mouseclick) {
         for (Boat boat : boats) {
-            if (boat.didIGotHit(mouseclick) && boat.getHitPointCounter()[Utilis.pointToIndex(boat, mouseclick)] == 0) {
-                boat.addHitPoint(mouseclick);
-                System.out.println(Arrays.toString(boat.getHitPointCounter()));
+            if (boat.didIGotHit(mouseclick))
                 return true;
-            }
         }
         return false;
     }
+
+    public Boat searchForAliveBoat(Point2D mouseClick) {
+        for (Boat boat : boats) {
+            if (boat.didIGotHit(mouseClick) && !boat.isBoatDrowned()) {
+                System.out.println(Arrays.toString(boat.getHitPointCounter()));
+                return boat;
+            }
+        }
+        return null;
+    }
+
 
     public Boat[] getBoats() {
         return boats;
@@ -71,5 +84,29 @@ public class Field extends GameObject {
     @Override
     public void tick() {
 
+    }
+
+    //ID is activePlayersField --> if id==active-> Repair
+    public void mouseInput(ID id, Point2D mouseClick) {
+        if (id.equals(getID())) {
+            Game.ui.tOUT.setText("nothing to be repaired");
+            if (searchingForMouseClickInField(mouseClick))
+                if (game.getActivePlayer().canRepair()) {
+                    game.getActivePlayer().repair(mouseClick);
+                }
+        } else
+            game.getInactivePlayer().getField().setOnShot(mouseClick);
+    }
+
+    public void setOnShot(Point2D mouseClick) {
+        game.getActivePlayer().playerDidShoot();
+        if (searchingForMouseClickInField(mouseClick)) {
+            Boat gotShot = searchForAliveBoat(mouseClick);
+            gotShot.addHitPoint(mouseClick);
+            Game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+        } else {
+            Game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+            game.switchTurn();
+        }
     }
 }

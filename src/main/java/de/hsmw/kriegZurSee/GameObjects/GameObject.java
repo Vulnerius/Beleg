@@ -9,7 +9,7 @@ public abstract class GameObject {
     private final ID ID;
     protected final Rectangle position;
     //hasCooldown here so a Field can switch on UserTurn
-    public static boolean hasCooldown = false;
+    public boolean hasCooldown = false;
 
 
     public GameObject(ID id, int x, int y, double width, double height, javafx.scene.paint.Color color) {
@@ -19,6 +19,10 @@ public abstract class GameObject {
     }
 
     public abstract void tick();
+
+    public boolean isHasCooldown() {
+        return hasCooldown;
+    }
 
     public void setHasCooldown(){
         hasCooldown = !hasCooldown;

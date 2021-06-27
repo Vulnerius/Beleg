@@ -15,6 +15,6 @@ public class ButtonClick {
         return event -> Game.playerShoots5();
     }
     public static EventHandler<ActionEvent> onSearch() {
-        return event -> Game.searchFor();
+        return event -> Game.playerSearchingForEnemyBoatPoint();
     }
 }

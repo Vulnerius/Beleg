@@ -12,9 +12,8 @@ public class FieldLogic {
         if (id.equals(ID.Player2Field)) {
             return BoatPlacements.boats2;
         }
-        else if (id.equals(ID.Player1Field)) {
+        else {
             return BoatPlacements.boats1;
         }
-        return null;
     }
 }
