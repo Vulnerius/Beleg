@@ -14,10 +14,19 @@ public class Player {
     private boolean hasTurn = false;
     private final Field field;
     private boolean hasShot = false;
+    private boolean shoots5 = false;
 
     public Player(Field field, ID id) {
         this.field = field;
         this.id = id;
+    }
+
+    public boolean isShoots5() {
+        return shoots5;
+    }
+
+    public void setShoots5(boolean shoots5) {
+        this.shoots5 = shoots5;
     }
 
     public Field getField() {

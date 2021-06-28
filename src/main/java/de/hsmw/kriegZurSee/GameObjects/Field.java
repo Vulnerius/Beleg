@@ -18,6 +18,7 @@ public class Field extends GameObject {
 
     private final Boat[] boats;
     private final Game game;
+    int counter = 0;
 
     public Field(Game game, de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
         super(id, x, y, width, height, Color.BLUE);
@@ -106,7 +107,14 @@ public class Field extends GameObject {
             Game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
         } else {
             Game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+        }
+        counter++;
+        if (game.getActivePlayer().isShoots5() && counter > 4 ) {
             game.switchTurn();
+            counter = 0;
+        } else if(!game.getActivePlayer().isShoots5()){
+            game.switchTurn();
+            counter = 0;
         }
     }
 }

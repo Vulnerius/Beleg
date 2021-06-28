@@ -1,7 +1,6 @@
 package de.hsmw.kriegZurSee.inputs;
 
 import de.hsmw.kriegZurSee.Game;
-import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.constants.ID;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
@@ -37,25 +36,3 @@ public class MouseInput {
         game.getField2().updateField();
     }
 }
-                /*if (game.getPlayerTurn() == ID.Player1) {
-                        if (game.getPlayer1().canRepair()) {
-                            game.getPlayer1().repair(mouseClick);
-                        }
-                    }
-                    //active Player : player2 :: shoot
-                    if (game.getPlayerTurn() == ID.Player2 && !game.getPlayer2().isHasShot()) {
-                        game.getPlayer2().playerDidShoot();
-                        game.getPlayer2().setHasShot(true);
-                        if (game.searchField(ID.Player1Field, mouseClick)) {
-                            Game.ui.drawHitCircle(x, y);
-                            game.getPlayer2().setHasShot(false);
-                            Game.ui.tOUT.setText("You Hit");
-                        } else {
-
-        Game.ui.drawMissCircle(x, y);
-        Game.ui.tOUT.setText("You Missed");
-        game.switchTurn();
-    }
-
-
-}*/

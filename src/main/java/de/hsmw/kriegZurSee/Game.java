@@ -39,7 +39,7 @@ public class Game extends Application {
         Player playerToSearch = handler.game.getActivePlayer();
         boolean canSearch = false;
         for (Boat b : playerToSearch.getField().getBoats()) {
-            if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned()) {
+            if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned() && !b.isHasCooldown()) {
                 canSearch = true;
                 b.setHasCooldown();
             }
@@ -54,10 +54,8 @@ public class Game extends Application {
         }
     }
 
-    public static void playerShoots5() {
-        for (int temp = 0; temp < 5; temp++) {
-
-        }
+    public static void playerShoots5() throws InterruptedException {
+        handler.game.getActivePlayer().setShoots5(true);
     }
 
 

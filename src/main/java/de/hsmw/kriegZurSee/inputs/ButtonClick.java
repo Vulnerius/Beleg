@@ -12,7 +12,13 @@ public class ButtonClick {
     }
 
     public static EventHandler<ActionEvent> onShoot5() {
-        return event -> Game.playerShoots5();
+        return event -> {
+            try {
+                Game.playerShoots5();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
     }
     public static EventHandler<ActionEvent> onSearch() {
         return event -> Game.playerSearchingForEnemyBoatPoint();
