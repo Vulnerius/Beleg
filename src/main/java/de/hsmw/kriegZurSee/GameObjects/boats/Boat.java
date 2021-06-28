@@ -11,19 +11,12 @@ import java.util.Arrays;
 
 public abstract class Boat extends GameObject {
 
-    private final double length;
     private final int[] hitPointCounter;
 
     public Boat(de.hsmw.kriegZurSee.constants.ID id, int x, int y, double width, double height, Color color) {
         super(id, x, y, width, height, color);
-        if (checkIsVert()) length = width / 40;
-        else length = height / 40;
-        hitPointCounter = new int[(int) length];
+        hitPointCounter = new int[(int) ((width+height)/40)-1];
         Arrays.fill(hitPointCounter, 0);
-    }
-
-    public double getLength() {
-        return length;
     }
 
     public boolean checkIsVert() {
@@ -47,7 +40,7 @@ public abstract class Boat extends GameObject {
     }
 
     public void addHitPoint(Point2D p0) {
-        if(!isBoatDrowned()&&didIGotHit(p0)) {
+        if(didIGotHit(p0)) {
             hitPointCounter[Utilis.pointToIndex(this,p0)] = 1;
         }
     }

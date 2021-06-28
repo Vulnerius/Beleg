@@ -6,7 +6,6 @@ import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import de.hsmw.kriegZurSee.userInterface.UserInterFace;
 import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.stage.Stage;
 
 
@@ -22,8 +21,8 @@ public class Game extends Application {
 
 
     public Game() {
-        field1 = new Field(ID.Player1Field, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
-        field2 = new Field(ID.Player2Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        field1 = new Field(this,ID.Player1Field, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        field2 = new Field(this,ID.Player2Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         player1 = new Player(field1, ID.Player1);
         player2 = new Player(field2, ID.Player2);
         player1.setHasTurn();
@@ -36,12 +35,14 @@ public class Game extends Application {
         handler.game.switchTurn();
     }
 
-    public static void searchFor() {
+    public static void playerSearchingForEnemyBoatPoint() {
         Player playerToSearch = handler.game.getActivePlayer();
         boolean canSearch = false;
         for (Boat b : playerToSearch.getField().getBoats()) {
-            if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned())
+            if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned() && !b.isHasCooldown()) {
                 canSearch = true;
+                b.setHasCooldown();
+            }
         }
         // active Player is searching the inactive Players Field
         if (canSearch) {
@@ -53,20 +54,10 @@ public class Game extends Application {
         }
     }
 
-    public static void playerShoots5() {
-        for (int temp = 0; temp < 5; temp++) {
-            handler.game.getActivePlayer().setHasShot(false);
-        }
+    public static void playerShoots5() throws InterruptedException {
+        handler.game.getActivePlayer().setShoots5(true);
     }
 
-    public boolean searchField(ID id, Point2D mouseClick) {
-        if (id.equals(ID.Player2Field)) {
-            return field2.searchForMatching(mouseClick);
-        } else if (id.equals(ID.Player1Field)) {
-            return field1.searchForMatching(mouseClick);
-        }
-        return false;
-    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -128,4 +119,11 @@ public class Game extends Application {
             return player2;
     }
 
+    public Player getInactivePlayer() {
+        ID playerID = getPlayerTurn();
+        if (playerID == ID.Player1)
+            return player2;
+        else
+            return player1;
+    }
 }

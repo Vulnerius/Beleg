@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 
 
 public class TestBoat {
-    Corsair cs = new Corsair(4,4,3,1, Color.RED);
-    BattleShip bs1 = new BattleShip(2,2, 4, 1,Color.RED);
-    BattleShip bs2 = new BattleShip(3,2, 4, 1,Color.RED);
-    HeliLandingBoat hlb = new HeliLandingBoat(3,2, 4, 1,Color.RED);
-    RepairBoat rb = new RepairBoat(3,2, 4, 1,Color.RED);
+    Corsair cs = new Corsair(4,4,3*40,1*40, Color.RED);
+    BattleShip bs1 = new BattleShip(2,2, 4*40, 1*40,Color.RED);
+    BattleShip bs2 = new BattleShip(3,2, 4*40, 1*40,Color.RED);
+    HeliLandingBoat hlb = new HeliLandingBoat(3,2, 4*40, 1*40,Color.RED);
+    RepairBoat rb = new RepairBoat(3,2, 4*40, 1*40,Color.RED);
 
 
     @Test
