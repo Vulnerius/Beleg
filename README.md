@@ -21,7 +21,7 @@ Schlachtschiff: ermöglicht den Abschuss einer 5 Schuss Salve<br />
 
 
 Der Helikopter hat eine Schussanzahl von 15 Schuss, diese kann durch das Landen zurückgesetzt werden.<br /><br />
-Der Helikopter ist kein Objekt auf dem Spielfeld, sondern nur für die Anzahl der verbliebenen Spielerschüsse.
+Der Helikopter ist kein Objekt auf dem Spielfeld und nur für die Überprüfung der verbliebenen Anzahl an Spielerschüssen notwendig.
 
 Die Schiffe werden jede Runde zufällig auf dem Spielfeld verteilt.<br />
 Die Schiffe dürfen keine Ausbuchtungen haben.</br>
