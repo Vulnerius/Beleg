@@ -38,6 +38,7 @@ public class Player {
         if(hasTurn){
             setHasShot(false);
             setShoots5(false);
+
             field.newRound();
         }
     }

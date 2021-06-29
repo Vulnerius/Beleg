@@ -15,22 +15,20 @@ Jeder Spieler hat 5 Schiffe: <br />
 
 Jedes Boot hat seine eigene passive Fähigkeit<br />
 ReparierBoot: kann in dieser Runde 1 Stelle eines beliebigen Schiffs reparieren<br />
-HeliLandeBoot: ermöglicht es dem Spieler seine SchussAnzahl zurückzusetzen, kann erst angegriffen werden, nachdem das Schlachtschiff zerstört wurde<br />
+HeliLandeBoot: ermöglicht es dem Spieler seine SchussAnzahl zurückzusetzen, es kann erst angegriffen werden, nachdem das Schlachtschiff zerstört wurde<br />
 PiratenSchiff: ermöglicht für diese Runde die Rückgabe eines Feldes, das definitiv von einem Schiff besetzt ist<br />
 Schlachtschiff: ermöglicht den Abschuss einer 5 Schuss Salve<br />
 
 
 Der Helikopter hat eine Schussanzahl von 15 Schuss, diese kann durch das Landen zurückgesetzt werden.<br /><br />
-Der Helikopter ist kein Objekt auf dem Spielfeld, sondern nur für die grafische Darstellung von Schüssen.
+Der Helikopter ist kein Objekt auf dem Spielfeld, sondern nur für die Anzahl der verbliebenen Spielerschüsse.
 
 Die Schiffe werden jede Runde zufällig auf dem Spielfeld verteilt.<br />
-Die Schiffe dürfen nicht aneinander stoßen oder sich kreuzen<br />
-Die Schiffe dürfen nicht über Eck gebaut werden oder Ausbuchtungen besitzen<br />
+Die Schiffe dürfen keine Ausbuchtungen haben.</br>
 Die Schiffe dürfen nicht diagonal aufgebaut sein<br />
 Ein Schiff ist versenkt, wenn alle Bestandteile abgeschossen wurden<br />
 
-(Dem Spieler wird das Spielfeld des Gegners der vorherigen Runde angezeigt) - evtl auch nicht
-Dem Spieler werden die Trefferpunkte seiner Schiffe und die des Gegners angezeigt
+Dem aktiven Spieler wird sein eigenes Spielfeld und die abgeschossenen Schiffe des Gegners angezeigt.
 
 Der Spieler kann für seinen Zug zwischen Reparieren oder Spähen und anschließend Schießen oder Helikopter landen wählen. <br/>
 Auswahl Schuss: 1 Schuss oder 5 Schuss Salve; sollte der Einzelschuss treffen, darf der Spieler erneut schießen<br />

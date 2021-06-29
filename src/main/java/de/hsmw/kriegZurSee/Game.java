@@ -7,12 +7,11 @@ import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import de.hsmw.kriegZurSee.userInterface.EndUI;
 import de.hsmw.kriegZurSee.userInterface.UserInterFace;
-import javafx.application.Application;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-public class Game extends Application {
+public class Game {
     public static UserInterFace ui;
     public static Handler handler;
     private Stage stage;
@@ -25,8 +24,9 @@ public class Game extends Application {
     public static int BOARD_WIDTH_HEIGHT = 240;
 
 
-    public Game() {
+    public Game(Stage stage) {
         gameState = GameState.ACTIVE;
+        this.stage = stage;
         handler = new Handler(this);
         field1 = new Field(this, ID.Player1Field, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         field2 = new Field(this, ID.Player2Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
@@ -34,9 +34,9 @@ public class Game extends Application {
         player2 = new Player(field2, ID.Player2);
         player1.setHasTurn(true);
         player2.setHasTurn(false);
-        stage = new Stage();
-        ui = new UserInterFace(this, stage, handler);
-        field1.setBoatColors(Color.VIOLET);
+        ui = new UserInterFace(this, stage ,handler);
+        /*field1.setBoatColors(Color.BLACK);
+        field2.setBoatColors(Color.BLUE);*/
     }
 
     public void setGameState(GameState gameState) {
@@ -60,11 +60,7 @@ public class Game extends Application {
         }
         // active Player is searching the inactive Players Field
         if (canSearch) {
-            if (playerToSearch == player1)
-                playerToSearch = player2;
-            else
-                playerToSearch = player1;
-            ui.drawSearchPT(playerToSearch.getField().getBoatPos());
+            ui.drawSearchPT(handler.game.getInactivePlayer().getField().getBoatPos());
         }
     }
 
@@ -72,27 +68,20 @@ public class Game extends Application {
         handler.game.getActivePlayer().setShoots5(true);
     }
 
-
-    @Override
-    public void start(Stage primaryStage) {
-        stage = primaryStage;
-        new Game();
-    }
-
     public void switchTurn() {
-        switch(gameState){
-            case NEW -> new Game();
-            case END -> new EndUI(this);
+        if (gameState == GameState.END) {
+            new EndUI(this);
         }
         if (player1.getHasTurn()) {
             player1.setHasTurn(false);
             player2.setHasTurn(true);
-        } else if (player2.getHasTurn()) {
+        } else {
             player2.setHasTurn(false);
             player1.setHasTurn(true);
         }
-        getActivePlayer().getField().setBoatColors(Color.VIOLET);
-        getInactivePlayer().getField().setBoatColors(Color.BLACK);
+        getActivePlayer().getField().setBoatColors(Color.BLACK);
+        getInactivePlayer().getField().setBoatColors(Color.BLUE);
+        getInactivePlayer().getField().updateField();
         ui.removeShot();
     }
 
@@ -104,19 +93,17 @@ public class Game extends Application {
     }
 
     public Player getActivePlayer() {
-        ID playerID = getPlayerTurn();
-        if (playerID == ID.Player1)
+        if(player1.getHasTurn())
             return player1;
         else
             return player2;
     }
 
     public Player getInactivePlayer() {
-        ID playerID = getPlayerTurn();
-        if (playerID == ID.Player1)
-            return player2;
-        else
+        if(player2.getHasTurn())
             return player1;
+        else
+            return player2;
     }
 
     public Field getField1() {
@@ -135,7 +122,4 @@ public class Game extends Application {
         return player2;
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

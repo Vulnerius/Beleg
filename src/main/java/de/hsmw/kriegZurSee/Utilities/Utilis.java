@@ -5,11 +5,15 @@ import javafx.geometry.Point2D;
 
 public interface Utilis {
     static int randInt(int start, int end){
-        return (int) (1 + (Math.random() * (4)))*40;
+        return (int) (start + (Math.random() * (end-start)))*40;
     }
 
-    static Point2D randPt(int startX, int endX, int startY, int endY){
-        return new Point2D(startX + randInt(1,6), startY+randInt(1,6));
+    static Point2D randPtF1(){
+        return new Point2D(20+randInt(1,6), 30+randInt(1,6));
+    }
+
+    static Point2D randPtF2(){
+        return new Point2D(20+randInt(1,6), 330+randInt(1,6));
     }
 
     static int pointToIndex(Boat bo, Point2D point){

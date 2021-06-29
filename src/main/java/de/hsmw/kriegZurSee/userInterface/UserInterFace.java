@@ -27,7 +27,6 @@ import static de.hsmw.kriegZurSee.Game.BOARD_WIDTH_HEIGHT;
 public class UserInterFace {
     private final int WIDTH = 600, HEIGHT = 600;
 
-    private final Handler handler;
     private final Game game;
 
     private final Stage stage;
@@ -35,29 +34,27 @@ public class UserInterFace {
     private final Scene scene;
     private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
+    private final VBox buttonBox;
     public final TextField tOUT;
     public final Label shotCount;
 
     private final Circle referenceCircle;
 
 
-    public UserInterFace(Game game, Stage stage ,Handler handler) {
+    public UserInterFace(Game game, Stage stage, Handler handler) {
         referenceCircle = new Circle(1, 1, 0);
-        this.stage = stage;
-        this.handler = handler;
         this.game = game;
-
+        this.stage = stage;
         root = new Group();
-        scene = new Scene(root, WIDTH, HEIGHT);
         sceneBP = new BorderPane();
 
-        fieldAnchorPane = new AnchorPane();
+        fieldAnchorPane = new AnchorPane(root);
         fieldAnchorPane.getChildren().addAll(game.getField1().getPosition(), game.getField2().getPosition());
         fieldAnchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
         VBox labels = new VBox(280);
         Label field1 = new Label("Player 1 Field");
         Label field2 = new Label("Player 2 Field");
-        labels.getChildren().addAll(field1,field2);
+        labels.getChildren().addAll(field1, field2);
         fieldAnchorPane.getChildren().add(labels);
         for (Boat b : game.getField1().getBoats()) {
             fieldAnchorPane.getChildren().add(b.getPosition());
@@ -67,8 +64,8 @@ public class UserInterFace {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
 
-        VBox buttonBox = new VBox(25);
-        buttonBox.setAlignment(Pos.BASELINE_RIGHT);
+        buttonBox = new VBox(25);
+        buttonBox.setAlignment(Pos.CENTER);
 
         Button restore = new Button("restore");
         restore.setOnAction(ButtonClick.onRestore());
@@ -79,8 +76,7 @@ public class UserInterFace {
         Button shoot5 = new Button("shoot 5 shots");
         shoot5.setOnAction(ButtonClick.onShoot5());
         buttonBox.getChildren().add(shoot5);
-        shotCount = new Label();
-        shotCount.setText("ShotCount of "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+        shotCount = new Label("ShotCount of " + game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         buttonBox.getChildren().add(shotCount);
 
         tOUT = new TextField();
@@ -88,27 +84,27 @@ public class UserInterFace {
         buttonBox.getChildren().add(tOUT);
         buttonBox.setPadding(new Insets(40, 15, 20, 140));
 
-
-        sceneBP.setCenter(fieldAnchorPane);
+        sceneBP.setLeft(fieldAnchorPane);
         sceneBP.setRight(buttonBox);
 
+        scene = new Scene(sceneBP, WIDTH, HEIGHT);
         initializeUI();
         stage.setScene(scene);
         stage.setResizable(true);
         stage.show();
     }
-    public void stop(){
+
+    public void stop() {
         stage.close();
     }
 
     private void initializeUI() {
         drawGrid(game.getField1(), fieldAnchorPane);
         drawGrid(game.getField2(), fieldAnchorPane);
-        root.getChildren().add(sceneBP);
         scene.setFill(Color.valueOf("#eee"));
     }
 
-    public void drawGrid(Field field, AnchorPane fieldVBox) {
+    public void drawGrid(Field field, AnchorPane anchorPane) {
         int x = (int) field.getPosition().getX();
         int y = (int) field.getPosition().getY();
         for (int index = 0; index < 7; index++) {
@@ -120,7 +116,7 @@ public class UserInterFace {
             /*
             adding lines to AnchorPane
              */
-            fieldVBox.getChildren().addAll(verticalLine, horizontalLine);
+            anchorPane.getChildren().addAll(verticalLine, horizontalLine);
         }
     }
 
@@ -155,5 +151,9 @@ public class UserInterFace {
     public void drawSearchPT(Circle boatPos) {
         boatPos.setFill(Color.DARKBLUE);
         fieldAnchorPane.getChildren().add(boatPos);
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 }

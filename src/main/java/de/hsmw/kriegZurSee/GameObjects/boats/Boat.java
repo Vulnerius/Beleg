@@ -40,7 +40,7 @@ public abstract class Boat extends GameObject {
     }
 
     public void addHitPoint(Point2D p0) {
-        if(didIGotHit(p0)) {
+        if(didIGotHit(p0) && hitPointCounter[Utilis.pointToIndex(this,p0)] == 0) {
             hitPointCounter[Utilis.pointToIndex(this,p0)] = 1;
         }
     }

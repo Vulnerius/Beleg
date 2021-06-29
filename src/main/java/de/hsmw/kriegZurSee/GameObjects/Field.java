@@ -29,11 +29,15 @@ public class Field extends GameObject {
 
     public void updateField() {
         updateBS_HLB();
-        if(allBoatsDead()){
-            game.setGameState(GameState.END);
-            game.switchTurn();
+        for (Boat b : boats) {
+            if (b.isHasCooldown())
+                b.setHasCooldown();
         }
-        Game.ui.shotCount.setText("ShotCount of "  + game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+        if (allBoatsDead()) {
+            game.switchTurn();
+            game.setGameState(GameState.END);
+        }
+        Game.ui.shotCount.setText("ShotCount of " + game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
     }
 
     private boolean allBoatsDead() {
@@ -47,7 +51,8 @@ public class Field extends GameObject {
 
     public void setBoatColors(Color col) {
         for (Boat boat : boats) {
-            boat.setColor(col);
+            if (!boat.isBoatDrowned())
+                boat.setColor(col);
         }
     }
 
@@ -66,6 +71,7 @@ public class Field extends GameObject {
 
     public void newRound() {
         boats = FieldLogic.setBoats(getID());
+
     }
 
     private boolean searchingForMouseClickInField(Point2D mouseclick) {
@@ -121,8 +127,9 @@ public class Field extends GameObject {
     public void setOnShot(Point2D mouseClick) {
         game.getActivePlayer().playerDidShoot();
         if (Integer.parseInt(game.getActivePlayer().getShotCount()) <= 0) {
+            Game.ui.tOUT.setText(game.getActivePlayer().getID() + "shotCount restored!");
+            game.getActivePlayer().resetShotCount();
             game.switchTurn();
-            Game.ui.tOUT.setText("you have to restore your Shots next Round!" + game.getActivePlayer());
         }
         if (game.getActivePlayer().isShoots5()) {
             if (searchingForMouseClickInField(mouseClick)) {
@@ -132,8 +139,8 @@ public class Field extends GameObject {
             } else if (!searchingForMouseClickInField(mouseClick)) {
                 Game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
             } else if (fiveShotCounter == 5) {
-                game.switchTurn();
                 fiveShotCounter = 0;
+                game.switchTurn();
             }
             fiveShotCounter++;
         } else {
