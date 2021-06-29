@@ -1,4 +1,4 @@
-package de.hsmw.kriegZurSee.GameObjects.boats;
+package de.hsmw.kriegZurSee.gameObjects.boats;
 import javafx.scene.paint.Color;
 
 
@@ -10,9 +10,4 @@ public class BattleShip extends Boat {
     }
 
 
-
-    @Override
-    public void tick() {
-
-    }
 }

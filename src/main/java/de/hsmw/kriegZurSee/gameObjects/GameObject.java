@@ -1,4 +1,4 @@
-package de.hsmw.kriegZurSee.GameObjects;
+package de.hsmw.kriegZurSee.gameObjects;
 
 import de.hsmw.kriegZurSee.constants.ID;
 import javafx.scene.paint.Color;
@@ -17,8 +17,6 @@ public abstract class GameObject {
         position = new Rectangle(x, y, width, height);
         position.setFill(color);
     }
-
-    public abstract void tick();
 
     public boolean isHasCooldown() {
         return hasCooldown;

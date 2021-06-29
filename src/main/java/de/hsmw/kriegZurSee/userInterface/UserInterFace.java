@@ -1,8 +1,8 @@
 package de.hsmw.kriegZurSee.userInterface;
 
 import de.hsmw.kriegZurSee.Game;
-import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
-import de.hsmw.kriegZurSee.GameObjects.Field;
+import de.hsmw.kriegZurSee.gameObjects.boats.Boat;
+import de.hsmw.kriegZurSee.gameObjects.Field;
 import de.hsmw.kriegZurSee.inputs.ButtonClick;
 import de.hsmw.kriegZurSee.inputs.Handler;
 import javafx.geometry.Insets;
@@ -25,16 +25,12 @@ import static de.hsmw.kriegZurSee.Game.BOARD_WIDTH_HEIGHT;
 
 
 public class UserInterFace {
-    private final int WIDTH = 600, HEIGHT = 600;
 
     private final Game game;
 
     private final Stage stage;
-    private final Group root;
     private final Scene scene;
-    private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
-    private final VBox buttonBox;
     public final TextField tOUT;
     public final Label shotCount;
 
@@ -45,8 +41,8 @@ public class UserInterFace {
         referenceCircle = new Circle(1, 1, 0);
         this.game = game;
         this.stage = stage;
-        root = new Group();
-        sceneBP = new BorderPane();
+        Group root = new Group();
+        BorderPane sceneBP = new BorderPane();
 
         fieldAnchorPane = new AnchorPane(root);
         fieldAnchorPane.getChildren().addAll(game.getField1().getPosition(), game.getField2().getPosition());
@@ -64,7 +60,7 @@ public class UserInterFace {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
 
-        buttonBox = new VBox(25);
+        VBox buttonBox = new VBox(25);
         buttonBox.setAlignment(Pos.CENTER);
 
         Button restore = new Button("restore");
@@ -87,6 +83,8 @@ public class UserInterFace {
         sceneBP.setLeft(fieldAnchorPane);
         sceneBP.setRight(buttonBox);
 
+        int HEIGHT = 600;
+        int WIDTH = 600;
         scene = new Scene(sceneBP, WIDTH, HEIGHT);
         initializeUI();
         stage.setScene(scene);
@@ -155,5 +153,9 @@ public class UserInterFace {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public void update(String text) {
+        tOUT.setText(text);
     }
 }

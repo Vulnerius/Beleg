@@ -1,8 +1,8 @@
-package de.hsmw.kriegZurSee.GameObjects.boats;
+package de.hsmw.kriegZurSee.gameObjects.boats;
 
 import de.hsmw.kriegZurSee.Game;
-import de.hsmw.kriegZurSee.GameObjects.GameObject;
-import de.hsmw.kriegZurSee.Utilities.Utilis;
+import de.hsmw.kriegZurSee.gameObjects.GameObject;
+import de.hsmw.kriegZurSee.utilities.Utilis;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -51,6 +51,5 @@ public abstract class Boat extends GameObject {
 
     public void getRepaired(Point2D mouseClick) {
         hitPointCounter[Utilis.pointToIndex(this, mouseClick)] = 0;
-        Game.ui.tOUT.setText("repaired");
     }
 }

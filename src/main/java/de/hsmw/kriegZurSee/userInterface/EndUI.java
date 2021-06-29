@@ -1,14 +1,11 @@
 package de.hsmw.kriegZurSee.userInterface;
 
-import de.hsmw.kriegZurSee.App;
 import de.hsmw.kriegZurSee.Game;
-import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
+import de.hsmw.kriegZurSee.gameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.constants.GameState;
-import de.hsmw.kriegZurSee.inputs.ButtonClick;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -17,8 +14,8 @@ import java.util.Arrays;
 public class EndUI {
     private final Stage stage;
 
-    public EndUI(Game game) {
-        stage = new Stage();
+    public EndUI(Game game,Stage stage) {
+        this.stage = stage;
         VBox vBox = new VBox(25);
         Button playAgain = new Button("Play Again");
         playAgain.setOnAction(event ->{
@@ -35,7 +32,7 @@ public class EndUI {
         });
         Button exit = new Button("exit");
         exit.setOnAction(event -> {
-            Game.ui.stop();
+            game.ui.stop();
             stage.close();
         });
         Label whoWon = new Label(game.getActivePlayer().getID() + " won!");

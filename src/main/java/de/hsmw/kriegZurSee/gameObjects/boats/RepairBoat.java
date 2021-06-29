@@ -1,6 +1,5 @@
-package de.hsmw.kriegZurSee.GameObjects.boats;
+package de.hsmw.kriegZurSee.gameObjects.boats;
 
-import de.hsmw.kriegZurSee.Game;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -13,12 +12,6 @@ public class RepairBoat extends Boat {
     public void repair(Boat toRepair, Point2D index) {
         if (!isBoatDrowned() && !toRepair.isBoatDrowned()) {
             toRepair.getRepaired(index);
-        } else
-            Game.ui.tOUT.setText("nothing to be repaired");
-    }
-
-    @Override
-    public void tick() {
-
+        }
     }
 }

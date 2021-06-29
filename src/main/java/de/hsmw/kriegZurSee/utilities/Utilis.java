@@ -1,6 +1,6 @@
-package de.hsmw.kriegZurSee.Utilities;
+package de.hsmw.kriegZurSee.utilities;
 
-import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
+import de.hsmw.kriegZurSee.gameObjects.boats.Boat;
 import javafx.geometry.Point2D;
 
 public interface Utilis {

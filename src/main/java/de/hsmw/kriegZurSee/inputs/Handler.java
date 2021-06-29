@@ -5,7 +5,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 
 public class Handler implements EventHandler {
-    public Game game;
+    public final Game game;
 
 
     public Handler(Game game) {

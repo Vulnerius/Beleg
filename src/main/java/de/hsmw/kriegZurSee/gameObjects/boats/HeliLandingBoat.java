@@ -1,4 +1,4 @@
-package de.hsmw.kriegZurSee.GameObjects.boats;
+package de.hsmw.kriegZurSee.gameObjects.boats;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -24,8 +24,4 @@ public class HeliLandingBoat extends Boat {
     }
 
 
-    @Override
-    public void tick() {
-
-    }
 }

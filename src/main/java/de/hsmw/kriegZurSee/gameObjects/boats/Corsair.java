@@ -1,4 +1,4 @@
-package de.hsmw.kriegZurSee.GameObjects.boats;
+package de.hsmw.kriegZurSee.gameObjects.boats;
 
 import javafx.scene.paint.Color;
 
@@ -8,8 +8,4 @@ public class Corsair extends Boat {
         super(de.hsmw.kriegZurSee.constants.ID.Corsair, x, y, width, height,color);
     }
 
-    @Override
-    public void tick() {
-
-    }
 }

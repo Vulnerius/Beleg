@@ -1,14 +1,15 @@
 package de.hsmw.kriegZurSee;
 
-import de.hsmw.kriegZurSee.GameObjects.Field;
-import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
-import de.hsmw.kriegZurSee.GameObjects.boats.RepairBoat;
-import de.hsmw.kriegZurSee.Utilities.Utilis;
+import de.hsmw.kriegZurSee.gameObjects.Field;
+import de.hsmw.kriegZurSee.gameObjects.boats.Boat;
+import de.hsmw.kriegZurSee.gameObjects.boats.RepairBoat;
+import de.hsmw.kriegZurSee.utilities.Utilis;
 import de.hsmw.kriegZurSee.constants.ID;
 import javafx.geometry.Point2D;
 
 public class Player {
 
+    private Game game;
     private final ID id;
     private final Field field;
     private int shotCount = 15;
@@ -16,9 +17,10 @@ public class Player {
     private boolean hasShot = false;
     private boolean shoots5 = false;
 
-    public Player(Field field, ID id) {
+    public Player(Game game, Field field, ID id) {
         this.field = field;
         this.id = id;
+        this.game = game;
     }
 
     public boolean isShoots5() {
@@ -90,7 +92,7 @@ public class Player {
             if (toRepair.getHitPointCounter()[Utilis.pointToIndex(toRepair, mouseclick)] == 1) {
                 repairing.repair(toRepair, mouseclick);
                 repairing.setHasCooldown();
-                Game.ui.tOUT.setText("repaired");
+                game.ui.tOUT.setText("repaired" + toRepair.getID() + " @ " + (toRepair.getHitPointCounter()[Utilis.pointToIndex(toRepair,mouseclick)]-1));
             }
         }
     }
