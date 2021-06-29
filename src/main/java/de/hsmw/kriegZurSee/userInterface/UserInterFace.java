@@ -36,7 +36,7 @@ public class UserInterFace {
     private final BorderPane sceneBP;
     private final AnchorPane fieldAnchorPane;
     public final TextField tOUT;
-    private final Label shotCount;
+    public final Label shotCount;
 
     private final Circle referenceCircle;
 
@@ -62,6 +62,7 @@ public class UserInterFace {
         for (Boat b : game.getField1().getBoats()) {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
+
         for (Boat b : game.getField2().getBoats()) {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
@@ -79,7 +80,7 @@ public class UserInterFace {
         shoot5.setOnAction(ButtonClick.onShoot5());
         buttonBox.getChildren().add(shoot5);
         shotCount = new Label();
-        shotCount.setText("ShotCount "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+        shotCount.setText("ShotCount of "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         buttonBox.getChildren().add(shotCount);
 
         tOUT = new TextField();
@@ -93,6 +94,7 @@ public class UserInterFace {
 
         initializeUI();
         stage.setScene(scene);
+        stage.setResizable(true);
         stage.show();
     }
 
@@ -128,12 +130,11 @@ public class UserInterFace {
     public void drawHitCircle(int x, int y) {
         Circle shot = new Circle(x, y, 10);
         shot.setFill(Color.WHITESMOKE);
-        tOUT.setText("HIT");
+        tOUT.setText(game.getActivePlayer().getID() + " HIT");
         fieldAnchorPane.getChildren().add(shot);
     }
 
     public void removeShot() {
-        shotCount.setText("ShotCount "+ game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         fieldAnchorPane.getChildren().removeIf(d -> d.getClass().equals(referenceCircle.getClass()));
     }
 
@@ -145,7 +146,7 @@ public class UserInterFace {
         Circle miss = new Circle(x, y, 10);
         miss.setFill(Color.DARKRED);
         fieldAnchorPane.getChildren().add(miss);
-        tOUT.setText("Miss");
+        tOUT.setText(game.getActivePlayer().getID() + " missed");
     }
 
     public void drawSearchPT(Circle boatPos) {

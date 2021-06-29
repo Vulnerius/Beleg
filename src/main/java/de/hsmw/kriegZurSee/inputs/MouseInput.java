@@ -29,10 +29,9 @@ public class MouseInput {
                 //checking y -> Field1
                 game.getField1().mouseInput(id,mouseClick);
             } else if (y >= 330 && y <= 610) {
+                //checking y -> Field2
                 game.getField2().mouseInput(id,mouseClick);
             }
         }
-        game.getField1().updateField();
-        game.getField2().updateField();
     }
 }

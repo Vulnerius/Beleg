@@ -15,7 +15,7 @@ public abstract class Boat extends GameObject {
 
     public Boat(de.hsmw.kriegZurSee.constants.ID id, int x, int y, double width, double height, Color color) {
         super(id, x, y, width, height, color);
-        hitPointCounter = new int[(int) ((width+height)/40)-1];
+        hitPointCounter = new int[(int) (width+height)/40-1];
         Arrays.fill(hitPointCounter, 0);
     }
 

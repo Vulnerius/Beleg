@@ -43,9 +43,21 @@ public abstract class GameObject {
         position.setFill(color);
     }
 
-    public boolean collidesWith(GameObject other) {
-        return position.intersects(other.position.getX(), other.position.getY(), other.position.getWidth(), other.position.getHeight());
+    public final boolean collidesWith(GameObject other) {
+        return
+                //LK(this(incl Deadzone)) links der RK(other)
+                this.position.getX() - 40 < other.position.getX() + other.getPosition().getWidth()
+                        &&
+                        //RK(this(incl Deadzone) rechts der LK(other)
+                        this.position.getX() + this.getPosition().getWidth() + 40 > other.position.getX()
+                        &&
+                        //OK(this(incl Deadzone) über UK(other)
+                        this.position.getY() + this.getPosition().getHeight() + 40 > other.position.getY()
+                        &&
+                        //UK(this(incl Deadzone) unter OK(other)
+                        this.position.getY() - 40 < other.position.getY() + other.getPosition().getHeight();
     }
+
 
     public Rectangle getPosition() {
         return position;

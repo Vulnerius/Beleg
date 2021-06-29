@@ -10,9 +10,9 @@ import javafx.geometry.Point2D;
 public class Player {
 
     private final ID id;
-    private int shotCount = 15;
-    private boolean hasTurn = false;
     private final Field field;
+    private int shotCount = 15;
+    private boolean hasTurn = true;
     private boolean hasShot = false;
     private boolean shoots5 = false;
 
@@ -33,8 +33,13 @@ public class Player {
         return field;
     }
 
-    public void setHasTurn() {
-        hasTurn = !hasTurn;
+    public void setHasTurn(boolean toSet) {
+        hasTurn = toSet;
+        if(hasTurn){
+            setHasShot(false);
+            setShoots5(false);
+            field.newRound();
+        }
     }
 
     public void setHasShot(boolean hasShot) {
@@ -81,12 +86,11 @@ public class Player {
             }
         }
         if (repairing != null && toRepair != null) {
-            if (toRepair.getHitPointCounter()[Utilis.pointToIndex(repairing, mouseclick)] == 1) {
+            if (toRepair.getHitPointCounter()[Utilis.pointToIndex(toRepair, mouseclick)] == 1) {
                 repairing.repair(toRepair, mouseclick);
                 repairing.setHasCooldown();
                 Game.ui.tOUT.setText("repaired");
             }
-            Game.ui.tOUT.setText("nothing to be repaired");
         }
     }
 

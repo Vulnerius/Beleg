@@ -3,9 +3,10 @@ package de.hsmw.kriegZurSee.GameObjects;
 import de.hsmw.kriegZurSee.Game;
 import de.hsmw.kriegZurSee.GameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.GameObjects.boats.HeliLandingBoat;
-import de.hsmw.kriegZurSee.Utilities.Utilis;
+import de.hsmw.kriegZurSee.constants.GameState;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.fieldLogic.FieldLogic;
+import de.hsmw.kriegZurSee.userInterface.EndUI;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,9 +17,9 @@ import java.util.Random;
 
 public class Field extends GameObject {
 
-    private final Boat[] boats;
+    private Boat[] boats;
     private final Game game;
-    int counter = 0;
+    private int fiveShotCounter = 0;
 
     public Field(Game game, de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
         super(id, x, y, width, height, Color.BLUE);
@@ -28,10 +29,24 @@ public class Field extends GameObject {
 
     public void updateField() {
         updateBS_HLB();
+        int i = 0;
         for (Boat b : boats) {
-            b.isBoatDrowned();
-            if (b.isHasCooldown())
+            if (b.isBoatDrowned()) {
+                i++;
+            }
+            if (!b.isBoatDrowned() && b.isHasCooldown()) {
                 b.setHasCooldown();
+                i = 0;
+            }
+        }
+        if (i == 4)
+            new EndUI(game);
+        Game.ui.shotCount.setText("ShotCount of "  + game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+    }
+
+    public void setBoatColors(Color col) {
+        for (Boat boat : boats) {
+            boat.setColor(col);
         }
     }
 
@@ -46,6 +61,10 @@ public class Field extends GameObject {
                 }
             }
         }
+    }
+
+    public void newRound() {
+        boats = FieldLogic.setBoats(getID());
     }
 
     private boolean searchingForMouseClickInField(Point2D mouseclick) {
@@ -75,7 +94,7 @@ public class Field extends GameObject {
         Random i = new Random();
         int found = i.nextInt(boats.length);
         Boat discovered = boats[found];
-        while (boats[found].isBoatDrowned()) {
+        while (discovered.isBoatDrowned() || discovered.getID() == ID.HeliLandingBoat) {
             found = i.nextInt(boats.length);
             discovered = boats[found];
         }
@@ -90,7 +109,6 @@ public class Field extends GameObject {
     //ID is activePlayersField --> if id==active-> Repair
     public void mouseInput(ID id, Point2D mouseClick) {
         if (id.equals(getID())) {
-            Game.ui.tOUT.setText("nothing to be repaired");
             if (searchingForMouseClickInField(mouseClick))
                 if (game.getActivePlayer().canRepair()) {
                     game.getActivePlayer().repair(mouseClick);
@@ -101,20 +119,31 @@ public class Field extends GameObject {
 
     public void setOnShot(Point2D mouseClick) {
         game.getActivePlayer().playerDidShoot();
-        if (searchingForMouseClickInField(mouseClick)) {
-            Boat gotShot = searchForAliveBoat(mouseClick);
-            gotShot.addHitPoint(mouseClick);
-            Game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
-        } else {
-            Game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+        if (Integer.parseInt(game.getActivePlayer().getShotCount()) <= 0) {
+            game.switchTurn();
+            Game.ui.tOUT.setText("you have to restore your Shots next Round!" + game.getActivePlayer());
         }
-        counter++;
-        if (game.getActivePlayer().isShoots5() && counter > 4 ) {
-            game.switchTurn();
-            counter = 0;
-        } else if(!game.getActivePlayer().isShoots5()){
-            game.switchTurn();
-            counter = 0;
+        if (game.getActivePlayer().isShoots5()) {
+            if (searchingForMouseClickInField(mouseClick)) {
+                Boat gotShot = searchForAliveBoat(mouseClick);
+                gotShot.addHitPoint(mouseClick);
+                Game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+            } else if (!searchingForMouseClickInField(mouseClick)) {
+                Game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+            } else if (fiveShotCounter == 5) {
+                game.switchTurn();
+                fiveShotCounter = 0;
+            }
+            fiveShotCounter++;
+        } else {
+            if (searchingForMouseClickInField(mouseClick)) {
+                Boat gotShot = searchForAliveBoat(mouseClick);
+                gotShot.addHitPoint(mouseClick);
+                Game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+            } else {
+                Game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
+                game.switchTurn();
+            }
         }
     }
 }
