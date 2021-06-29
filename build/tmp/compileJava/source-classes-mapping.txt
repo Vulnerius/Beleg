@@ -20,6 +20,12 @@ de/hsmw/kriegZurSee/GameObjects/boats/Corsair.java
  de.hsmw.kriegZurSee.GameObjects.boats.Corsair
 de/hsmw/kriegZurSee/inputs/ButtonClick.java
  de.hsmw.kriegZurSee.inputs.ButtonClick
+de/hsmw/kriegZurSee/GameObjects/boats/Boat.java
+ de.hsmw.kriegZurSee.GameObjects.boats.Boat
+de/hsmw/kriegZurSee/App.java
+ de.hsmw.kriegZurSee.App
+de/hsmw/kriegZurSee/GameObjects/boats/RepairBoat.java
+ de.hsmw.kriegZurSee.GameObjects.boats.RepairBoat
 de/hsmw/kriegZurSee/userInterface/EndUI.java
  de.hsmw.kriegZurSee.userInterface.EndUI
 de/hsmw/kriegZurSee/GameObjects/Field.java
@@ -28,15 +34,10 @@ de/hsmw/kriegZurSee/inputs/Handler.java
  de.hsmw.kriegZurSee.inputs.Handler
 de/hsmw/kriegZurSee/userInterface/UserInterFace.java
  de.hsmw.kriegZurSee.userInterface.UserInterFace
-de/hsmw/kriegZurSee/App.java
- de.hsmw.kriegZurSee.App
 de/hsmw/kriegZurSee/inputs/MouseInput.java
  de.hsmw.kriegZurSee.inputs.MouseInput
-de/hsmw/kriegZurSee/GameObjects/boats/Boat.java
- de.hsmw.kriegZurSee.GameObjects.boats.Boat
 de/hsmw/kriegZurSee/Player.java
  de.hsmw.kriegZurSee.Player
 de/hsmw/kriegZurSee/Game.java
  de.hsmw.kriegZurSee.Game
-de/hsmw/kriegZurSee/GameObjects/boats/RepairBoat.java
- de.hsmw.kriegZurSee.GameObjects.boats.RepairBoat
+ de.hsmw.kriegZurSee.Game$1

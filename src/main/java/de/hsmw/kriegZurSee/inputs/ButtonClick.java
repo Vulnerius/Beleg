@@ -23,4 +23,5 @@ public class ButtonClick {
     public static EventHandler<ActionEvent> onSearch() {
         return event -> Game.playerSearchingForEnemyBoatPoint();
     }
+
 }

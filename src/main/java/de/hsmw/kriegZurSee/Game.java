@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class Game extends Application {
     public static UserInterFace ui;
     public static Handler handler;
+    private Stage stage;
     private GameState gameState;
     private final Field field1;
     private final Field field2;
@@ -26,12 +27,15 @@ public class Game extends Application {
 
     public Game() {
         gameState = GameState.ACTIVE;
+        handler = new Handler(this);
         field1 = new Field(this, ID.Player1Field, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         field2 = new Field(this, ID.Player2Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         player1 = new Player(field1, ID.Player1);
         player2 = new Player(field2, ID.Player2);
         player1.setHasTurn(true);
         player2.setHasTurn(false);
+        stage = new Stage();
+        ui = new UserInterFace(this, stage, handler);
         field1.setBoatColors(Color.VIOLET);
     }
 
@@ -71,27 +75,24 @@ public class Game extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setResizable(false);
-        primaryStage.setTitle("Hello World");
-        Game game = new Game();
-        handler = new Handler(game);
-        //set Storage File here
-        ui = new UserInterFace(game, primaryStage, handler);
-        primaryStage.show();
+        stage = primaryStage;
+        new Game();
     }
 
     public void switchTurn() {
-        if(player1.getHasTurn()){
+        switch(gameState){
+            case NEW -> new Game();
+            case END -> new EndUI(this);
+        }
+        if (player1.getHasTurn()) {
             player1.setHasTurn(false);
             player2.setHasTurn(true);
-        } else if (player2.getHasTurn()){
+        } else if (player2.getHasTurn()) {
             player2.setHasTurn(false);
             player1.setHasTurn(true);
         }
         getActivePlayer().getField().setBoatColors(Color.VIOLET);
         getInactivePlayer().getField().setBoatColors(Color.BLACK);
-        getActivePlayer().getField().updateField();
-        getInactivePlayer().getField().updateField();
         ui.removeShot();
     }
 
@@ -112,10 +113,10 @@ public class Game extends Application {
 
     public Player getInactivePlayer() {
         ID playerID = getPlayerTurn();
-        if (playerID == ID.Player2)
-            return player1;
-        else
+        if (playerID == ID.Player1)
             return player2;
+        else
+            return player1;
     }
 
     public Field getField1() {

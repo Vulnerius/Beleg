@@ -23,25 +23,26 @@ public class Field extends GameObject {
 
     public Field(Game game, de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
         super(id, x, y, width, height, Color.BLUE);
-        boats = FieldLogic.setBoats(id);
+        newRound();
         this.game = game;
     }
 
     public void updateField() {
         updateBS_HLB();
-        int i = 0;
-        for (Boat b : boats) {
-            if (b.isBoatDrowned()) {
-                i++;
-            }
-            if (!b.isBoatDrowned() && b.isHasCooldown()) {
-                b.setHasCooldown();
-                i = 0;
-            }
+        if(allBoatsDead()){
+            game.setGameState(GameState.END);
+            game.switchTurn();
         }
-        if (i == 4)
-            new EndUI(game);
         Game.ui.shotCount.setText("ShotCount of "  + game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+    }
+
+    private boolean allBoatsDead() {
+        int countOfDeadBoats = 0;
+        for (Boat boat : boats) {
+            if (boat.isBoatDrowned())
+                countOfDeadBoats++;
+        }
+        return countOfDeadBoats == boats.length;
     }
 
     public void setBoatColors(Color col) {
@@ -145,5 +146,6 @@ public class Field extends GameObject {
                 game.switchTurn();
             }
         }
+        game.getInactivePlayer().getField().updateField();
     }
 }

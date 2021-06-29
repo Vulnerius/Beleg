@@ -41,7 +41,7 @@ public class UserInterFace {
     private final Circle referenceCircle;
 
 
-    public UserInterFace(Game game, Stage stage, Handler handler) {
+    public UserInterFace(Game game, Stage stage ,Handler handler) {
         referenceCircle = new Circle(1, 1, 0);
         this.stage = stage;
         this.handler = handler;
@@ -96,6 +96,9 @@ public class UserInterFace {
         stage.setScene(scene);
         stage.setResizable(true);
         stage.show();
+    }
+    public void stop(){
+        stage.close();
     }
 
     private void initializeUI() {

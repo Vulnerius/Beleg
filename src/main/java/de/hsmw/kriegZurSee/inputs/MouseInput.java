@@ -33,5 +33,6 @@ public class MouseInput {
                 game.getField2().mouseInput(id,mouseClick);
             }
         }
+        game.getInactivePlayer().getField().updateField();
     }
 }

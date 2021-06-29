@@ -56,7 +56,7 @@ public class FieldLogic {
         Boat boat = null;
             do {
                 for (Boat b : boatsP1) {
-                    forEveryBoat = Utilis.randPt(20, 260-4*40, 30, 270-4*40);
+                    forEveryBoat = Utilis.randPt(20, 260-160, 30, 270-160);
                     b.setPos((int) forEveryBoat.getX(), (int) forEveryBoat.getY());
                     boat = b;
                 }

@@ -5,7 +5,7 @@ import javafx.geometry.Point2D;
 
 public interface Utilis {
     static int randInt(int start, int end){
-        return (int) (start + (Math.random() * (end-start-2)))*40;
+        return (int) (1 + (Math.random() * (4)))*40;
     }
 
     static Point2D randPt(int startX, int endX, int startY, int endY){
