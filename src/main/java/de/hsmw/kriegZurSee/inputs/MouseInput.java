@@ -23,16 +23,17 @@ public class MouseInput {
         Point2D mouseClick = new Point2D(x, y);
         ID id = game.getActivePlayer().getFieldID();
 
-        if (x >= 20 && x <= 260) {
+        if (x >= 20 && x <= 340) {
             //checking x -> BOARD
-            if (y >= 30 && y <= 270) {
+            if (y >= 30 && y <= 350) {
                 //checking y -> Field1
                 game.getField1().mouseInput(id,mouseClick);
-            } else if (y >= 330 && y <= 610) {
+            } else if (y >= 380 && y <= 700) {
                 //checking y -> Field2
                 game.getField2().mouseInput(id,mouseClick);
             }
         }
         game.getInactivePlayer().getField().updateField();
+        game.getActivePlayer().getField().updateField();
     }
 }

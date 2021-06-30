@@ -49,10 +49,6 @@ public class Player {
         this.hasShot = hasShot;
     }
 
-    public boolean isHasShot() {
-        return hasShot;
-    }
-
     public final void playerDidShoot() {
         shotCount--;
         hasShot = true;
@@ -86,13 +82,13 @@ public class Player {
         for (Boat b : field.getBoats()) {
             if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned()) {
                 repairing = (RepairBoat) b;
+                b.setHasCooldown();
             }
         }
         if (repairing != null && toRepair != null) {
             if (toRepair.getHitPointCounter()[Utilis.pointToIndex(toRepair, mouseclick)] == 1) {
                 repairing.repair(toRepair, mouseclick);
-                repairing.setHasCooldown();
-                game.ui.tOUT.setText("repaired" + toRepair.getID() + " @ " + (toRepair.getHitPointCounter()[Utilis.pointToIndex(toRepair,mouseclick)]-1));
+                game.ui.update("repaired " + toRepair.getID() + " @ " + Utilis.pointToIndex(toRepair,mouseclick)+1);
             }
         }
     }

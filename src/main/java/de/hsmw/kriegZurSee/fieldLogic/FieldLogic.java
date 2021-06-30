@@ -10,18 +10,18 @@ import java.util.Random;
 
 public class FieldLogic {
     private static final Random r = new Random();
-    private static final BattleShip battleShipp1 = new BattleShip(0, 0, 4 * 40, 40, Color.WHITE);
-    private static final Corsair corsairp1 = new Corsair(0, 0, 40, 3 * 40, Color.WHITE);
-    private static final HeliLandingBoat heliLandingBoatp1 = new HeliLandingBoat(0, 0, 2 * 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat1p1 = new RepairBoat(0, 0, 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat2p1 = new RepairBoat(0, 0, 40, 40, Color.WHITE);
+    private static final BattleShip battleShipp1 = new BattleShip((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 4 * 40, 40, Color.WHITE);
+    private static final Corsair corsairp1 = new Corsair((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 3 * 40, Color.WHITE);
+    private static final HeliLandingBoat heliLandingBoatp1 = new HeliLandingBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 2 * 40, 40, Color.WHITE);
+    private static final RepairBoat repairBoat1p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
+    private static final RepairBoat repairBoat2p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
 
 
-    private static final BattleShip battleShipp2 = new BattleShip(0, 0, 4 * 40, 40, Color.WHITE);
-    private static final Corsair corsairp2 = new Corsair(0, 0, 40, 3 * 40, Color.WHITE);
-    private static final HeliLandingBoat heliLandingBoatp2 = new HeliLandingBoat(0, 0, 2 * 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat1p2 = new RepairBoat(0, 0, 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat2p2 = new RepairBoat(0, 0, 40, 40, Color.WHITE);
+    private static final BattleShip battleShipp2 = new BattleShip((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 4 * 40, 40, Color.WHITE);
+    private static final Corsair corsairp2 = new Corsair((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 3 * 40, Color.WHITE);
+    private static final HeliLandingBoat heliLandingBoatp2 = new HeliLandingBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 2 * 40, 40, Color.WHITE);
+    private static final RepairBoat repairBoat1p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
+    private static final RepairBoat repairBoat2p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
 
     private static final Boat[] boatsP1 = new Boat[]{battleShipp1, corsairp1, heliLandingBoatp1, repairBoat1p1, repairBoat2p1};
     private static final Boat[] boatsP2 = new Boat[]{battleShipp2, corsairp2, heliLandingBoatp2, repairBoat1p2, repairBoat2p2};
@@ -36,102 +36,75 @@ public class FieldLogic {
     }
 
     private static boolean boatCollides(Boat boat, Boat[] boats) {
-        if (boat == null)
-            return false;
-        for (int temp = 0; temp < boats.length; temp++) {
-            if (boat.getID().equals(boats[temp].getID())) {
-                temp++;
-            } else if (boat.collidesWith(boats[temp])) {
-                return false;
+        int counter = 0;
+        //checking whether or not a boat collides with other boats
+        for (Boat b : boats) {
+            if (b.collidesWith(boat)) {
+                counter++;
+            }
+            if (b.getID().equals(boat.getID())) {
+                counter--;
             }
         }
-        return true;
+        return counter == 0;
     }
 
     private static Boat[] setField1Boats() {
         // 20 <= x <= 260
         // 30 <= y <= 270
+        //for every Boat in BoatsP1 set Position
         for (int temp = 0; temp < boatsP1.length; temp++) {
-            int ran = r.nextInt(2);
-            Point2D forEveryBoat = Utilis.randPtF1();
             Boat boat = boatsP1[temp];
-            boat.setPos((int) forEveryBoat.getX(), (int) forEveryBoat.getY());
-            while (!inBoundF1(boat) && !boatCollides(boat,boatsP1)) {
-                forEveryBoat = Utilis.randPtF1();
-                if (ran == 0) {
-                    boat.setPos((int) forEveryBoat.getX(), (int) forEveryBoat.getY(), boat.getHitPointCounter().length * 40, 40);
-                } else {
-                    boat.setPos((int) forEveryBoat.getX(), (int) forEveryBoat.getY(), 40, boat.getHitPointCounter().length * 40);
-                } if(!boatCollides(boat,boatsP1)){
-                    if(ran == 0){
-                        boat.setPos((int)boat.getPosition().getX() -40, (int)boat.getPosition().getY()-40);
-                    }
-                    else
-                        boat.setPos((int)boat.getPosition().getX() +40, (int)boat.getPosition().getY()+40);
+            //making sure not to get stuck in the while loop
+            int whileLoopCounter = 0;
+            //setting the Position for each Point in bounds of Field
+            do {
+                whileLoopCounter++;
+                Point2D forEveryBoat = Utilis.randPtF1();
+                int ran = r.nextInt(2);
+                Utilis.setBoatPos(boat, forEveryBoat, ran);
+                if (whileLoopCounter == 1000000) {
+                    break;
                 }
-                boatsP1[temp] = boat;
+                //checking if a boat collides with other boats on the Field
+            } while (!boatCollides(boat, boatsP1));
+            if (boatCollides(boat, boatsP1) && temp == 3) {
+                boatsP1[3].setPos((int) boatsP1[3].getPosition().getX() + 80, (int) boatsP1[3].getPosition().getY() + 40);
+            }
+            if (boatCollides(boat, boatsP1) && temp == 4) {
+                boatsP1[4].setPos((int) boatsP1[4].getPosition().getX() + 80, (int) boatsP1[4].getPosition().getY() + 40);
             }
         }
         return boatsP1;
     }
 
-
-    private static boolean inBoundF1(Boat boat) {
-        boolean isInX = false;
-        boolean isInY = false;
-        //checking x
-        if (boat.getPosition().getX() >= 20 && boat.getPosition().getX() + boat.getPosition().getWidth() <= 260) {
-            isInX = true;
-        }
-        //checking y
-        if (boat.getPosition().getY() >= 30 && boat.getPosition().getY() + boat.getPosition().getHeight() <= 270) {
-            isInY = true;
-        }
-        if (!isInX)
-            return false;
-        else return isInY;
-    }
-
     private static Boat[] setField2Boats() {
         // 20 <= x <= 260
         // 330 <= y <= 610
-        int ran = r.nextInt(2);
-        Point2D forEveryBoat = Utilis.randPtF1();
-        Boat[] returnArray = boatsP2;
-
-        for (int temp = 0; temp < returnArray.length; temp++) {
-            for (int i = 0; i < 150; i++) {
-                Boat boat = returnArray[temp];
-                boat.setPos((int) forEveryBoat.getX(), (int) forEveryBoat.getY());
-                while (!inBoundF2(boat)) {
-                    forEveryBoat = Utilis.randPtF2();
-                    if (ran == 0) {
-                        boat.setPos((int) forEveryBoat.getX(), (int) forEveryBoat.getY(), boat.getHitPointCounter().length * 40, 40);
-                    } else {
-                        boat.setPos((int) forEveryBoat.getX(), (int) forEveryBoat.getY(), 40, boat.getHitPointCounter().length * 40);
-                    }
+        //for every Boat in BoatsP2
+        for (int temp = 0; temp < boatsP2.length; temp++) {
+            Boat boat = boatsP2[temp];
+            //making sure not to get stuck in the while loop
+            int whileLoopCounter = 0;
+            //setting the Position for each Point in bounds of Field
+            do {
+                whileLoopCounter++;
+                Point2D forEveryBoat = Utilis.randPtF2();
+                int ran = r.nextInt(2);
+                Utilis.setBoatPos(boat, forEveryBoat, ran);
+                if (whileLoopCounter == 1000000) {
+                    break;
                 }
-                ran = r.nextInt(2);
-                forEveryBoat = Utilis.randPtF2();
-                if (boatCollides(boat, returnArray)) {
-                    boatsP2[temp] = boat;
-                } else
-                    i++;
+                //checking if a boat collides with other boats on the Field
+            } while (!boatCollides(boat, boatsP2));
+            if (boatCollides(boat, boatsP2) && temp == 3) {
+                boatsP2[3].setPos((int) boatsP2[3].getPosition().getX() + 80, (int) boatsP2[3].getPosition().getY() + 40);
+            }
+            if (boatCollides(boat, boatsP2) && temp == 4) {
+                boatsP2[4].setPos((int) boatsP2[4].getPosition().getX() + 80, (int) boatsP2[4].getPosition().getY() + 40);
             }
         }
         return boatsP2;
     }
 
-    private static boolean inBoundF2(Boat boat) {
-        boolean isInX = false;
-        boolean isInY = false;
-        if (boat.getPosition().getX() >= 20 && boat.getPosition().getX() + boat.getPosition().getWidth() <= 260)
-            isInX = true;
-        if (boat.getPosition().getY() >= 330 && boat.getPosition().getY() + boat.getPosition().getHeight() <= 600)
-            isInY = true;
-        //checking x
-        if (!isInX)
-            return false;
-        else return isInY;
-    }
 }

@@ -43,21 +43,20 @@ public abstract class GameObject {
     }
 
     public final boolean collidesWith(GameObject other) {
-        if (getPosition().intersects(other.getPosition().getX(), other.getPosition().getY(), other.getPosition().getWidth(), other.getPosition().getHeight()))
+        if (position.intersects(other.getPosition().getX(), other.getPosition().getY(), other.getPosition().getWidth(), other.getPosition().getHeight()))
             return true;
-        else
-            return
-                    //LK(this(incl Deadzone)) links der RK(other)
-                    this.position.getX() - 40 < other.getPosition().getX() + other.getPosition().getWidth()
-                            ||
-                            //RK(this(incl Deadzone) rechts der LK(other)
-                            this.position.getX() + this.position.getWidth() > other.getPosition().getX() - 40
-                            ||
-                            //OK(this(incl Deadzone) über UK(other)
-                            this.position.getY() + this.position.getHeight() > other.getPosition().getY() - 40
-                            ||
-                            //UK(this(incl Deadzone) unter OK(other)
-                            this.position.getY() - 40 < other.getPosition().getY() + other.getPosition().getHeight();
+        return
+                //LK(this(incl Deadzone)) links der RK(other)
+                position.getX() - 40 < other.getPosition().getX() + other.getPosition().getWidth()
+                        &&
+                        //RK(this(incl Deadzone) rechts der LK(other)
+                        position.getX() + position.getWidth() + 40 > other.getPosition().getX()
+                        &&
+                        //OK(this(incl Deadzone) über UK(other)
+                        position.getY() + position.getHeight() + 40 > other.getPosition().getY()
+                        &&
+                        //UK(this(incl Deadzone) unter OK(other)
+                        position.getY() - 40 < other.getPosition().getY() + other.getPosition().getHeight();
     }
 
 

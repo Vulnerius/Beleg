@@ -20,21 +20,22 @@ public class Game {
     private static Player player1;
     private static Player player2;
 
-    public static final int BOARD_WIDTH_HEIGHT = 240;
+    public static final int BOARD_WIDTH_HEIGHT = 320;
 
 
     public Game(Stage stage) {
         gameState = GameState.ACTIVE;
         handler = new Handler(this);
         field1 = new Field(this, ID.Player1Field, 20, 30, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
-        field2 = new Field(this, ID.Player2Field, 20, 330, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
+        field2 = new Field(this, ID.Player2Field, 20, 380, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         player1 = new Player(this, field1, ID.Player1);
         player2 = new Player(this, field2, ID.Player2);
         ui = new UserInterFace(this, stage, handler);
         player1.setHasTurn(true);
+        field1.updateField();
         player2.setHasTurn(false);
-        field1.setBoatColors(Color.WHITESMOKE);
-        //field2.setBoatColors(Color.BLUE);
+        field1.setBoatColors(Color.PURPLE);
+        field2.setBoatColors(Color.BLUE);
     }
 
     public void setGameState(GameState gameState) {
@@ -84,10 +85,11 @@ public class Game {
             player2.setHasTurn(false);
             player1.setHasTurn(true);
         }
-        getActivePlayer().getField().newRound();
-        getInactivePlayer().getField().newRound();
-        getActivePlayer().getField().setBoatColors(Color.VIOLET);
-        //getInactivePlayer().getField().setBoatColors(Color.BLUE);
+        getActivePlayer().getField().setBoatColors(Color.PURPLE);
+        getInactivePlayer().getField().setBoatColors(Color.BLUE);
+        getInactivePlayer().getField().updateField();
+        getActivePlayer().getField().updateField();
+        ui.shotCount.setText(getActivePlayer().getID() + "@" + getActivePlayer().getShotCount() + " shots");
         ui.removeShot();
     }
 

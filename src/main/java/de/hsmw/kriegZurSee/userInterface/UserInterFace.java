@@ -11,10 +11,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -31,8 +33,9 @@ public class UserInterFace {
     private final Stage stage;
     private final Scene scene;
     private final AnchorPane fieldAnchorPane;
-    public final TextField tOUT;
     public final Label shotCount;
+    public final TextField tOUT;
+    public final Pane hitPoints;
 
     private final Circle referenceCircle;
 
@@ -47,7 +50,7 @@ public class UserInterFace {
         fieldAnchorPane = new AnchorPane(root);
         fieldAnchorPane.getChildren().addAll(game.getField1().getPosition(), game.getField2().getPosition());
         fieldAnchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
-        VBox labels = new VBox(280);
+        VBox labels = new VBox(340);
         Label field1 = new Label("Player 1 Field");
         Label field2 = new Label("Player 2 Field");
         labels.getChildren().addAll(field1, field2);
@@ -61,8 +64,6 @@ public class UserInterFace {
         }
 
         VBox buttonBox = new VBox(25);
-        buttonBox.setAlignment(Pos.CENTER);
-
         Button restore = new Button("restore");
         restore.setOnAction(ButtonClick.onRestore());
         Button searchPt = new Button("searchPt");
@@ -72,24 +73,27 @@ public class UserInterFace {
         Button shoot5 = new Button("shoot 5 shots");
         shoot5.setOnAction(ButtonClick.onShoot5());
         buttonBox.getChildren().add(shoot5);
-        shotCount = new Label("ShotCount of " + game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+        shotCount = new Label(game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         buttonBox.getChildren().add(shotCount);
 
         tOUT = new TextField();
-        tOUT.setAlignment(Pos.BASELINE_RIGHT);
         buttonBox.getChildren().add(tOUT);
         buttonBox.setPadding(new Insets(40, 15, 20, 140));
 
-        sceneBP.setLeft(fieldAnchorPane);
+        hitPoints = new Pane();
+        sceneBP.setLeft(hitPoints);
+        sceneBP.setCenter(fieldAnchorPane);
         sceneBP.setRight(buttonBox);
 
-        int HEIGHT = 600;
-        int WIDTH = 600;
+        int HEIGHT = 800;
+        int WIDTH = 800;
         scene = new Scene(sceneBP, WIDTH, HEIGHT);
         initializeUI();
-        stage.setScene(scene);
-        stage.setResizable(true);
-        stage.show();
+        this.stage.setWidth(1200);
+        this.stage.setHeight(800);
+        this.stage.setScene(scene);
+        this.stage.setResizable(false);
+        this.stage.show();
     }
 
     public void stop() {
@@ -105,7 +109,7 @@ public class UserInterFace {
     public void drawGrid(Field field, AnchorPane anchorPane) {
         int x = (int) field.getPosition().getX();
         int y = (int) field.getPosition().getY();
-        for (int index = 0; index < 7; index++) {
+        for (int index = 0; index < 9; index++) {
             /*x,y,width,height
            creating a Field of 6x6 divided lines are divided by (2px) thick lines
              */
@@ -157,5 +161,6 @@ public class UserInterFace {
 
     public void update(String text) {
         tOUT.setText(text);
+        shotCount.setText(game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
     }
 }

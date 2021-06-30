@@ -23,5 +23,7 @@ public class HeliLandingBoat extends Boat {
         canBeDamaged = true;
     }
 
-
+    public void setCanBeDamaged(boolean canBeDamaged) {
+        this.canBeDamaged = canBeDamaged;
+    }
 }

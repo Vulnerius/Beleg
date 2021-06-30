@@ -7,8 +7,11 @@ import de.hsmw.kriegZurSee.constants.GameState;
 import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.fieldLogic.FieldLogic;
 import javafx.geometry.Point2D;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -28,13 +31,44 @@ public class Field extends GameObject {
 
     public void updateField() {
         updateBS_HLB();
+        if (game.getActivePlayer().getField().getID() == getID()) {
+            updateHitPoints();
+        }
         for (Boat b : boats) {
-            if (b.isHasCooldown())
+            if (b.isHasCooldown()) {
                 b.setHasCooldown();
+            }
         }
-        if (allBoatsDead()) {
-            game.switchTurn();
+    }
+
+    private void updateHitPoints() {
+        game.ui.hitPoints.getChildren().clear();
+        int posX = 25;
+        int posY = 50;
+        for (Boat b : boats) {
+            Text boatId = new Text(b.getID().toString());
+            boatId.setX(posX);
+            boatId.setY(posY);
+            game.ui.hitPoints.getChildren().add(boatId);
+            posX += 150;
+            posY -= 10;
+            for (int i : b.getHitPointCounter()) {
+                Rectangle hitPoint = new Rectangle(posX, posY, 20, 20);
+                if (i == 0) {
+                    hitPoint.setFill(Color.DARKBLUE);
+                } else {
+                    hitPoint.setFill(Color.DARKRED);
+                }
+                game.ui.hitPoints.getChildren().add(hitPoint);
+                posX += 20;
+            }
+            posY += 40;
+            posX = 25;
         }
+        Text activePlayer = new Text(game.getActivePlayer().getID().toString());
+        activePlayer.setX(12);
+        activePlayer.setY(12);
+        game.ui.hitPoints.getChildren().add(activePlayer);
     }
 
     public boolean allBoatsDead() {
@@ -67,7 +101,6 @@ public class Field extends GameObject {
     }
 
     public void newRound() {
-        updateField();
         boats = FieldLogic.setBoats(getID());
     }
 
@@ -111,7 +144,6 @@ public class Field extends GameObject {
             if (searchingForMouseClickInField(mouseClick))
                 if (game.getActivePlayer().canRepair()) {
                     game.getActivePlayer().repair(mouseClick);
-                    game.ui.update("Repaired");
                 }
         } else
             game.getInactivePlayer().getField().setOnShot(mouseClick);
@@ -134,21 +166,22 @@ public class Field extends GameObject {
             }
         }
         if (game.getActivePlayer().isShoots5() && canShoot) {
-            game.ui.update("shooting 5 shots");
+            game.ui.update(game.getActivePlayer().getID() + " shoots 5 shots");
             if (searchingForMouseClickInField(mouseClick)) {
                 Boat gotShot = searchForAliveBoat(mouseClick);
                 gotShot.addHitPoint(mouseClick);
                 game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
-                game.ui.update(game.getActivePlayer().getID() + " hit");
             } else if (!searchingForMouseClickInField(mouseClick)) {
                 game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
-                game.ui.update(game.getActivePlayer().getID() + " missed");
             }
             fiveShotCounter++;
             if (fiveShotCounter == 5) {
                 fiveShotCounter = 0;
                 game.ui.update("switched Turns");
-                game.switchTurn();
+                game.getInactivePlayer().getField().updateField();
+                if (!game.getInactivePlayer().getField().allBoatsDead()) {
+                    game.switchTurn();
+                }
             }
         } else {
             if (searchingForMouseClickInField(mouseClick)) {
@@ -162,6 +195,5 @@ public class Field extends GameObject {
                 game.switchTurn();
             }
         }
-        game.getInactivePlayer().getField().updateField();
     }
 }

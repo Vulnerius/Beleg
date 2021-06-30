@@ -10,8 +10,8 @@ de/hsmw/kriegZurSee/gameObjects/boats/Corsair.java
  de.hsmw.kriegZurSee.gameObjects.boats.Corsair
 de/hsmw/kriegZurSee/gameObjects/Field.java
  de.hsmw.kriegZurSee.gameObjects.Field
-de/hsmw/kriegZurSee/inputs/MouseInput.java
- de.hsmw.kriegZurSee.inputs.MouseInput
+de/hsmw/kriegZurSee/gameObjects/GameObject.java
+ de.hsmw.kriegZurSee.gameObjects.GameObject
 module-info.java
  module-info
 de/hsmw/kriegZurSee/Player.java
@@ -22,8 +22,8 @@ de/hsmw/kriegZurSee/userInterface/StartUI.java
  de.hsmw.kriegZurSee.userInterface.StartUI
 de/hsmw/kriegZurSee/gameObjects/boats/BattleShip.java
  de.hsmw.kriegZurSee.gameObjects.boats.BattleShip
-de/hsmw/kriegZurSee/inputs/Handler.java
- de.hsmw.kriegZurSee.inputs.Handler
+de/hsmw/kriegZurSee/Game.java
+ de.hsmw.kriegZurSee.Game
 de/hsmw/kriegZurSee/userInterface/UserInterFace.java
  de.hsmw.kriegZurSee.userInterface.UserInterFace
 de/hsmw/kriegZurSee/App.java
@@ -36,7 +36,7 @@ de/hsmw/kriegZurSee/gameObjects/boats/HeliLandingBoat.java
  de.hsmw.kriegZurSee.gameObjects.boats.HeliLandingBoat
 de/hsmw/kriegZurSee/constants/ID.java
  de.hsmw.kriegZurSee.constants.ID
-de/hsmw/kriegZurSee/gameObjects/GameObject.java
- de.hsmw.kriegZurSee.gameObjects.GameObject
-de/hsmw/kriegZurSee/Game.java
- de.hsmw.kriegZurSee.Game
+de/hsmw/kriegZurSee/inputs/Handler.java
+ de.hsmw.kriegZurSee.inputs.Handler
+de/hsmw/kriegZurSee/inputs/MouseInput.java
+ de.hsmw.kriegZurSee.inputs.MouseInput
