@@ -14,7 +14,7 @@ public class Player {
     private final Field field;
     private int shotCount = 15;
     private boolean hasTurn = true;
-    private boolean hasShot = false;
+//    private boolean hasShot = false;
     private boolean shoots5 = false;
 
     public Player(Game game, Field field, ID id) {
@@ -37,21 +37,20 @@ public class Player {
 
     public void setHasTurn(boolean toSet) {
         hasTurn = toSet;
-        if(hasTurn){
-            setHasShot(false);
+        if (hasTurn) {
+            //setHasShot(false);
             setShoots5(false);
-
             field.newRound();
         }
     }
 
-    public void setHasShot(boolean hasShot) {
+/*    public void setHasShot(boolean hasShot) {
         this.hasShot = hasShot;
-    }
+    }*/
 
     public final void playerDidShoot() {
         shotCount--;
-        hasShot = true;
+       // hasShot = true;
     }
 
     public ID getID() {
@@ -66,6 +65,7 @@ public class Player {
         return String.valueOf(shotCount);
     }
 
+    //returning whether or not a player can Repair - a player has RepairBoats which are not drowned
     public boolean canRepair() {
         for (Boat b : field.getBoats()) {
             if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned()) {
@@ -75,20 +75,22 @@ public class Player {
         return false;
     }
 
+    //repairing method for a Player
+    //getting the hitten Boat and one of the RepairBoats in the players field if available
     public void repair(Point2D mouseclick) {
         RepairBoat repairing = null;
         Boat toRepair = field.searchForAliveBoat(mouseclick);
 
         for (Boat b : field.getBoats()) {
-            if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned()) {
+            if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned() && !b.isHasCooldown()) {
                 repairing = (RepairBoat) b;
-                b.setHasCooldown();
             }
         }
+        //checking repairingBoat and toRepairBoat to get no NullPointer
         if (repairing != null && toRepair != null) {
             if (toRepair.getHitPointCounter()[Utilis.pointToIndex(toRepair, mouseclick)] == 1) {
                 repairing.repair(toRepair, mouseclick);
-                game.ui.update("repaired " + toRepair.getID() + " @ " + Utilis.pointToIndex(toRepair,mouseclick)+1);
+                game.ui.update("repaired " + toRepair.getID() + " @ " + Utilis.pointToIndex(toRepair, mouseclick) + 1);
             }
         }
     }
@@ -97,6 +99,7 @@ public class Player {
         return field.getID();
     }
 
+    //resetting the shotCount if HeliLandingBoat is not drowned
     public void resetShotCount() {
         for (Boat b : field.getBoats())
             if (b.getID() == ID.HeliLandingBoat)

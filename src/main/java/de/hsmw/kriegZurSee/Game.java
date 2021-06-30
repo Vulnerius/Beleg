@@ -55,7 +55,7 @@ public class Game {
         for (Boat b : playerToSearch.getField().getBoats()) {
             if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned() && !b.isHasCooldown()) {
                 canSearch = true;
-                b.setHasCooldown();
+                //b.setHasCooldown();
             }
         }
         // active Player is searching the inactive Players Field
@@ -63,7 +63,7 @@ public class Game {
             handler.game.ui.drawSearchPT(handler.game.getInactivePlayer().getField().getBoatPos());
             handler.game.ui.update("Point found");
         } else
-            handler.game.ui.update("No Point found");
+            handler.game.ui.update("No RepairBoat found");
     }
 
     public static void playerShoots5() {
@@ -81,9 +81,11 @@ public class Game {
         if (player1.getHasTurn()) {
             player1.setHasTurn(false);
             player2.setHasTurn(true);
+            player2.getField().resetCoolDowns();
         } else {
             player2.setHasTurn(false);
             player1.setHasTurn(true);
+            player1.getField().resetCoolDowns();
         }
         getActivePlayer().getField().setBoatColors(Color.PURPLE);
         getInactivePlayer().getField().setBoatColors(Color.BLUE);

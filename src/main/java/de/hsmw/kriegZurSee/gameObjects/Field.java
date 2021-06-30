@@ -34,13 +34,15 @@ public class Field extends GameObject {
         if (game.getActivePlayer().getField().getID() == getID()) {
             updateHitPoints();
         }
+    }
+
+    public void resetCoolDowns(){
         for (Boat b : boats) {
             if (b.isHasCooldown()) {
                 b.setHasCooldown();
             }
         }
     }
-
     private void updateHitPoints() {
         game.ui.hitPoints.getChildren().clear();
         int posX = 25;
