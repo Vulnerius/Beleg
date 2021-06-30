@@ -4,7 +4,7 @@
 
 ### Ich habe mich für den Klassiker Schiffe versenken entschieden und die Regeln wie folgt modifiziert
 
-Das Spielfeld beträgt 6x6 Felder in horizontaler und vertikaler Ausrichtung
+Das Spielfeld beträgt 8x8 Felder in horizontaler und vertikaler Ausrichtung
 
 Jeder Spieler hat 5 Schiffe: <br />
 2 ReparierBoote: Länge 1<br />
@@ -28,10 +28,10 @@ Die Schiffe dürfen keine Ausbuchtungen haben.</br>
 Die Schiffe dürfen nicht diagonal aufgebaut sein<br />
 Ein Schiff ist versenkt, wenn alle Bestandteile abgeschossen wurden<br />
 
-Dem aktiven Spieler wird sein eigenes Spielfeld und die abgeschossenen Schiffe des Gegners angezeigt.
+Dem aktiven Spieler wird sein eigenes Spielfeld, die abgeschossenen Schiffe des Gegners, und die eigenen Schiffe mit abgeschossenen Teilen (insofern vorhanden) angezeigt.
 
 Der Spieler kann für seinen Zug zwischen Reparieren oder Spähen und anschließend Schießen oder Helikopter landen wählen. <br/>
-Auswahl Schuss: 1 Schuss oder 5 Schuss Salve; sollte der Einzelschuss treffen, darf der Spieler erneut schießen<br />
+Auswahl Schuss: 1 Schuss oder 5 Schuss Salve; sollte der Einzelschuss treffen, darf der Spieler erneut schießen, bei Wahl 5-Schuss-Salve, ist nach 5 Schüssen der Gegner am Zug.<br />
 Auswahl Spähen: in dieser Runde wird dem Spieler ein Feld angezeigt, das garantiert von einem Schiff besetzt ist<br />
 Auswahl Reparieren: wenn eines der beiden Reparierboote noch lebendig ist, kann der Spieler ein beschossenes BootsTeil seiner Wahl reparieren, ggf 2 Reparaturen, sollten beide RepairBoote noch lebendig sein<br />
 Auswahl Heli landen: füllt die Schussanzahl des Helikopters wieder auf, in dieser Runde kann der Spieler nicht schießen<br />
