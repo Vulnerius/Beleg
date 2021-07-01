@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.net.URI;
 
 
 public class StartUI {
@@ -15,12 +16,21 @@ public class StartUI {
         BorderPane bp = new BorderPane();
         VBox vBoxCenter = new VBox(25);
         vBoxCenter.setPadding(new Insets(50,10,10,50));
-        Label heading = new Label("Press Go to play");
+        Label heading = new Label("Press GO to play, Press HELP for ReadMe");
         Button go = new Button("GO");
         go.setOnAction(event -> new Game(stage));
-        vBoxCenter.getChildren().addAll(heading,go);
+        Button help = new Button("HELP");
+        help.setOnAction(event -> {
+            try {
+                URI uri = new URI("https://github.com/Vulnerius/Beleg#readme");
+                java.awt.Desktop.getDesktop().browse(uri);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        vBoxCenter.getChildren().addAll(heading,go,help);
         bp.setCenter(vBoxCenter);
-        Scene scene = new Scene(bp,200,200);
+        Scene scene = new Scene(bp,400,400);
         stage.setScene(scene);
         stage.show();
     }

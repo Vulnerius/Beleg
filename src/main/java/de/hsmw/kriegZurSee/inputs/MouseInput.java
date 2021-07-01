@@ -33,6 +33,7 @@ public class MouseInput {
                 game.getField2().mouseInput(id,mouseClick);
             }
         }
+        //updating each players Field after MouseInput - repairing or shooting
         game.getInactivePlayer().getField().updateField();
         game.getActivePlayer().getField().updateField();
     }

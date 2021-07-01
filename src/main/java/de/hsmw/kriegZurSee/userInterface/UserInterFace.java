@@ -36,6 +36,9 @@ public class UserInterFace {
     public final Label shotCount;
     public final TextField tOUT;
     public final Pane hitPoints;
+    private final Button restore;
+    private final Button shoot5;
+    private final Button searchPt;
 
     private final Circle referenceCircle;
 
@@ -44,52 +47,59 @@ public class UserInterFace {
         referenceCircle = new Circle(1, 1, 0);
         this.game = game;
         this.stage = stage;
+        //Group for vertical and horizontal Field lines
         Group root = new Group();
+        //BorderPane for Scene
         BorderPane sceneBP = new BorderPane();
 
+        // UI AnchorPane for Fields & Boats
         fieldAnchorPane = new AnchorPane(root);
         fieldAnchorPane.getChildren().addAll(game.getField1().getPosition(), game.getField2().getPosition());
         fieldAnchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
+        // UI Labels
         VBox labels = new VBox(340);
         Label field1 = new Label("Player 1 Field");
         Label field2 = new Label("Player 2 Field");
         labels.getChildren().addAll(field1, field2);
         fieldAnchorPane.getChildren().add(labels);
+        //adding Boats to the AnchorPane
         for (Boat b : game.getField1().getBoats()) {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
-
         for (Boat b : game.getField2().getBoats()) {
             fieldAnchorPane.getChildren().add(b.getPosition());
         }
-
+        //UI BP-Right VBox for Buttons and Output
         VBox buttonBox = new VBox(25);
-        Button restore = new Button("restore");
+        // initialising Buttons with dedicated Action
+        restore = new Button("restore");
         restore.setOnAction(ButtonClick.onRestore());
-        Button searchPt = new Button("searchPt");
+        searchPt = new Button("search Pointt");
         searchPt.setOnAction(ButtonClick.onSearch());
-
         buttonBox.getChildren().addAll(restore, searchPt);
-        Button shoot5 = new Button("shoot 5 shots");
+        shoot5 = new Button("shoot 5 shots");
         shoot5.setOnAction(ButtonClick.onShoot5());
         buttonBox.getChildren().add(shoot5);
+        // Label for ShotCount of the active Player
         shotCount = new Label(game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
         buttonBox.getChildren().add(shotCount);
-
+        //TextField for Output to the Players
         tOUT = new TextField();
         buttonBox.getChildren().add(tOUT);
         buttonBox.setPadding(new Insets(40, 15, 20, 140));
-
+        //Pane _hitPoints_ for showing the Active Player which Boats have been shot
         hitPoints = new Pane();
         sceneBP.setLeft(hitPoints);
         sceneBP.setCenter(fieldAnchorPane);
         sceneBP.setRight(buttonBox);
 
+        //setting width and height of the Scene
         int HEIGHT = 800;
         int WIDTH = 800;
         scene = new Scene(sceneBP, WIDTH, HEIGHT);
+        // adding Grid to the Fields
         initializeUI();
-        this.stage.setWidth(1200);
+        this.stage.setWidth(1000);
         this.stage.setHeight(800);
         this.stage.setScene(scene);
         this.stage.setResizable(false);
@@ -103,7 +113,6 @@ public class UserInterFace {
     private void initializeUI() {
         drawGrid(game.getField1(), fieldAnchorPane);
         drawGrid(game.getField2(), fieldAnchorPane);
-        scene.setFill(Color.valueOf("#eee"));
     }
 
     public void drawGrid(Field field, AnchorPane anchorPane) {
@@ -128,6 +137,7 @@ public class UserInterFace {
         return line;
     }
 
+    //method for coloring a white Circle on the Field
     public void drawHitCircle(int x, int y) {
         Circle shot = new Circle(x, y, 10);
         shot.setFill(Color.WHITESMOKE);
@@ -135,14 +145,12 @@ public class UserInterFace {
         fieldAnchorPane.getChildren().add(shot);
     }
 
+    //removing all shots from the Active Player on game.switchturn()
     public void removeShot() {
         fieldAnchorPane.getChildren().removeIf(d -> d.getClass().equals(referenceCircle.getClass()));
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
+    //drawing a dark red circle to show that the player missed
     public void drawMissCircle(int x, int y) {
         Circle miss = new Circle(x, y, 10);
         miss.setFill(Color.DARKRED);
@@ -150,6 +158,7 @@ public class UserInterFace {
         tOUT.setText(game.getActivePlayer().getID() + " missed");
     }
 
+    //drawing a dark blue circle where a boat is located
     public void drawSearchPT(Circle boatPos) {
         boatPos.setFill(Color.DARKBLUE);
         fieldAnchorPane.getChildren().add(boatPos);
@@ -163,4 +172,9 @@ public class UserInterFace {
         tOUT.setText(text);
         shotCount.setText(game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
     }
+
+    public void disableShoots5Button(boolean isDisabled) {
+        shoot5.setDisable(isDisabled);
+    }
+
 }

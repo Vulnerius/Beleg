@@ -42,6 +42,7 @@ public class Game {
         this.gameState = gameState;
     }
 
+    //restoring the shotCount to 15 (onButtonClick)
     public static void restoreActivePlayerShots() {
         Player he = handler.game.getActivePlayer();
         he.resetShotCount();
@@ -49,21 +50,24 @@ public class Game {
         handler.game.switchTurn();
     }
 
+    //searching the enemy field for a Boat
     public static void playerSearchingForEnemyBoatPoint() {
         Player playerToSearch = handler.game.getActivePlayer();
         boolean canSearch = false;
+        //looping through active playerField & checking if he is able to search for a point
         for (Boat b : playerToSearch.getField().getBoats()) {
-            if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned() && !b.isHasCooldown()) {
+            if (b.getID().equals(ID.Corsair) && !b.isBoatDrowned() && !b.isHasCoolDown()) {
                 canSearch = true;
-                //b.setHasCooldown();
+                b.setHasCooldown();
             }
         }
         // active Player is searching the inactive Players Field
         if (canSearch) {
             handler.game.ui.drawSearchPT(handler.game.getInactivePlayer().getField().getBoatPos());
+            //telling the player if a boat was found or if their corsair is already dead
             handler.game.ui.update("Point found");
         } else
-            handler.game.ui.update("No RepairBoat found");
+            handler.game.ui.update("your corsair has to be dead");
     }
 
     public static void playerShoots5() {
@@ -71,13 +75,16 @@ public class Game {
     }
 
     public void switchTurn() {
+        //checking if the game has ended
         if (getInactivePlayer().getField().allBoatsDead()) {
             new EndUI(this, handler.game.ui.getStage());
             return;
         }
+        //checking if a new game was called
         if (gameState.equals(GameState.NEW)) {
             new Game(new Stage());
         }
+        //switching playerTurns
         if (player1.getHasTurn()) {
             player1.setHasTurn(false);
             player2.setHasTurn(true);
@@ -87,11 +94,17 @@ public class Game {
             player1.setHasTurn(true);
             player1.getField().resetCoolDowns();
         }
+        //enabling Shoots5 for active Player
+        ui.disableShoots5Button(false);
+        //setting Boat colors of active and inactive Player
         getActivePlayer().getField().setBoatColors(Color.PURPLE);
         getInactivePlayer().getField().setBoatColors(Color.BLUE);
+        //updating both players field
         getInactivePlayer().getField().updateField();
         getActivePlayer().getField().updateField();
+        //telling the players who is to shoot
         ui.shotCount.setText(getActivePlayer().getID() + "@" + getActivePlayer().getShotCount() + " shots");
+        //removing all circles (mouseClicks) from the Fields
         ui.removeShot();
     }
 

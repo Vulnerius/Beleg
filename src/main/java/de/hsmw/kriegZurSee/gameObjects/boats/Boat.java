@@ -1,6 +1,5 @@
 package de.hsmw.kriegZurSee.gameObjects.boats;
 
-import de.hsmw.kriegZurSee.Game;
 import de.hsmw.kriegZurSee.gameObjects.GameObject;
 import de.hsmw.kriegZurSee.utilities.Utilis;
 import javafx.geometry.Point2D;
@@ -24,21 +23,24 @@ public abstract class Boat extends GameObject {
     }
 
     public boolean isBoatDrowned() {
+        //returning if a boat is drowned ( all his hitPoints are hit )
         int counter = 0;
         for (int temp = 0; temp < hitPointCounter.length; temp++) {
             counter += hitPointCounter[counter];
         }
         if (counter == hitPointCounter.length) {
-            setColor(Color.RED);
+            setColor(Color.BLANCHEDALMOND);
             return true;
         }
         return false;
     }
 
+    //method to check if a Boat got hit by a mouseClick
     public boolean didIGotHit(Point2D point) {
         return getPosition().intersects(point.getX(), point.getY(), 0.1, 0.1);
     }
 
+    //method to add a hitPoint to the hitPointCounter
     public void addHitPoint(Point2D p0) {
         if(didIGotHit(p0) && hitPointCounter[Utilis.pointToIndex(this,p0)] == 0) {
             hitPointCounter[Utilis.pointToIndex(this,p0)] = 1;

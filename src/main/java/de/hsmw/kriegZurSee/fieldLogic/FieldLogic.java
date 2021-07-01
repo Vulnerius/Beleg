@@ -10,19 +10,21 @@ import java.util.Random;
 
 public class FieldLogic {
     private static final Random r = new Random();
+    //initialising Player1 Boats
     private static final BattleShip battleShipp1 = new BattleShip((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 4 * 40, 40, Color.WHITE);
     private static final Corsair corsairp1 = new Corsair((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 3 * 40, Color.WHITE);
     private static final HeliLandingBoat heliLandingBoatp1 = new HeliLandingBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 2 * 40, 40, Color.WHITE);
     private static final RepairBoat repairBoat1p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
     private static final RepairBoat repairBoat2p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
 
-
+    //initialising Player2 Boats
     private static final BattleShip battleShipp2 = new BattleShip((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 4 * 40, 40, Color.WHITE);
     private static final Corsair corsairp2 = new Corsair((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 3 * 40, Color.WHITE);
     private static final HeliLandingBoat heliLandingBoatp2 = new HeliLandingBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 2 * 40, 40, Color.WHITE);
     private static final RepairBoat repairBoat1p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
     private static final RepairBoat repairBoat2p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
 
+    //assigning boats to Boat-Arrays
     private static final Boat[] boatsP1 = new Boat[]{battleShipp1, corsairp1, heliLandingBoatp1, repairBoat1p1, repairBoat2p1};
     private static final Boat[] boatsP2 = new Boat[]{battleShipp2, corsairp2, heliLandingBoatp2, repairBoat1p2, repairBoat2p2};
 
@@ -35,6 +37,7 @@ public class FieldLogic {
         }
     }
 
+    //private method to check if a Boat collides with other Boats in the Array
     private static boolean boatCollides(Boat boat, Boat[] boats) {
         int counter = 0;
         //checking whether or not a boat collides with other boats
@@ -63,7 +66,7 @@ public class FieldLogic {
                 Point2D forEveryBoat = Utilis.randPtF1();
                 int ran = r.nextInt(2);
                 Utilis.setBoatPos(boat, forEveryBoat, ran);
-                if (whileLoopCounter == 1000000) {
+                if (whileLoopCounter == 100000) {
                     break;
                 }
                 //checking if a boat collides with other boats on the Field

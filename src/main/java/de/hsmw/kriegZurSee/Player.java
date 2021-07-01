@@ -9,12 +9,11 @@ import javafx.geometry.Point2D;
 
 public class Player {
 
-    private Game game;
+    private final Game game;
     private final ID id;
     private final Field field;
     private int shotCount = 15;
-    private boolean hasTurn = true;
-//    private boolean hasShot = false;
+    private boolean hasTurn = false;
     private boolean shoots5 = false;
 
     public Player(Game game, Field field, ID id) {
@@ -35,22 +34,17 @@ public class Player {
         return field;
     }
 
+    //on setting the Turn the Players Boats are randomly set in his Field
     public void setHasTurn(boolean toSet) {
         hasTurn = toSet;
         if (hasTurn) {
-            //setHasShot(false);
             setShoots5(false);
             field.newRound();
         }
     }
 
-/*    public void setHasShot(boolean hasShot) {
-        this.hasShot = hasShot;
-    }*/
-
     public final void playerDidShoot() {
         shotCount--;
-       // hasShot = true;
     }
 
     public ID getID() {
@@ -75,14 +69,13 @@ public class Player {
         return false;
     }
 
-    //repairing method for a Player
+    //repairing method to be executed from the Game
     //getting the hitten Boat and one of the RepairBoats in the players field if available
     public void repair(Point2D mouseclick) {
         RepairBoat repairing = null;
         Boat toRepair = field.searchForAliveBoat(mouseclick);
-
         for (Boat b : field.getBoats()) {
-            if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned() && !b.isHasCooldown()) {
+            if (b.getID().equals(ID.RepairBoat) && !b.isBoatDrowned() && !b.isHasCoolDown()) {
                 repairing = (RepairBoat) b;
             }
         }
@@ -90,7 +83,7 @@ public class Player {
         if (repairing != null && toRepair != null) {
             if (toRepair.getHitPointCounter()[Utilis.pointToIndex(toRepair, mouseclick)] == 1) {
                 repairing.repair(toRepair, mouseclick);
-                game.ui.update("repaired " + toRepair.getID() + " @ " + Utilis.pointToIndex(toRepair, mouseclick) + 1);
+                game.ui.update("repaired " + toRepair.getID() + " @ " + (Utilis.pointToIndex(toRepair, mouseclick) + 1));
             }
         }
     }

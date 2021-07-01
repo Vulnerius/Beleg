@@ -8,8 +8,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class GameObject {
     private final ID ID;
     protected final Rectangle position;
-    //hasCooldown here so a Field can switch on UserTurn
-    public boolean hasCooldown = false;
+    public boolean hasCoolDown = false;
 
 
     public GameObject(ID id, int x, int y, double width, double height, javafx.scene.paint.Color color) {
@@ -18,19 +17,21 @@ public abstract class GameObject {
         position.setFill(color);
     }
 
-    public boolean isHasCooldown() {
-        return hasCooldown;
+    public boolean isHasCoolDown() {
+        return hasCoolDown;
     }
 
     public void setHasCooldown() {
-        hasCooldown = !hasCooldown;
+        hasCoolDown = !hasCoolDown;
     }
 
+    //overloaded setPosition method, once with x&y
     public void setPos(int x, int y) {
         position.setX(x);
         position.setY(y);
     }
 
+    //once with x,y,width and height
     public void setPos(int x, int y, int width, int height) {
         position.setX(x);
         position.setY(y);
@@ -42,20 +43,22 @@ public abstract class GameObject {
         position.setFill(color);
     }
 
+    //boat collides with other boat if boatPositions intersect with each other
     public final boolean collidesWith(GameObject other) {
         if (position.intersects(other.getPosition().getX(), other.getPosition().getY(), other.getPosition().getWidth(), other.getPosition().getHeight()))
             return true;
+        //or :
         return
-                //LK(this(incl Deadzone)) links der RK(other)
+                //LK(this) links der RK(other)
                 position.getX() - 40 < other.getPosition().getX() + other.getPosition().getWidth()
                         &&
-                        //RK(this(incl Deadzone) rechts der LK(other)
+                        //RK(this rechts der LK(other)
                         position.getX() + position.getWidth() + 40 > other.getPosition().getX()
                         &&
-                        //OK(this(incl Deadzone) über UK(other)
+                        //OK(this über UK(other)
                         position.getY() + position.getHeight() + 40 > other.getPosition().getY()
                         &&
-                        //UK(this(incl Deadzone) unter OK(other)
+                        //UK(this unter OK(other)
                         position.getY() - 40 < other.getPosition().getY() + other.getPosition().getHeight();
     }
 

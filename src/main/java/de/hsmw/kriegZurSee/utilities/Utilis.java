@@ -7,6 +7,7 @@ public interface Utilis {
     static int randInt(int start, int end){
         return (int) (start + (Math.random() * (end-start)))*40;
     }
+    //setting a Boat randomly horizontal or vertical
     static void setBoatPos(Boat boat, Point2D point, int random){
         if (random == 1) {
             boat.setPos((int) point.getX(), (int) point.getY(), 40, boat.getHitPointCounter().length * 40);
@@ -15,14 +16,17 @@ public interface Utilis {
         }
     }
 
+    //returning a Random Point for Field1
     static Point2D randPtF1(){
         return new Point2D(20+randInt(0,5), 30+randInt(0,5));
     }
 
+    //returning a Random Point for Field2
     static Point2D randPtF2(){
         return new Point2D(20+randInt(0,5), 380+randInt(0,5));
     }
 
+    //method to convert a Point to an index for hitPointCounter-Array
     static int pointToIndex(Boat bo, Point2D point){
         if(bo.checkIsVert()){
             return (int) ((bo.getPosition().getX() + bo.getPosition().getWidth() - point.getX()) /40);

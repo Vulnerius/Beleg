@@ -13,7 +13,6 @@ public class ButtonClick {
 
     public static EventHandler<ActionEvent> onShoot5() {
         return event -> Game.playerShoots5();
-
     }
 
     public static EventHandler<ActionEvent> onSearch() {

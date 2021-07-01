@@ -10,7 +10,8 @@ public class RepairBoat extends Boat {
     }
 
     public void repair(Boat toRepair, Point2D index) {
-        if (!isBoatDrowned() && !toRepair.isBoatDrowned() && !isHasCooldown()) {
+        //repairing a boat
+        if (!isBoatDrowned() && !toRepair.isBoatDrowned() && !isHasCoolDown()) {
             toRepair.getRepaired(index);
             setHasCooldown();
         }

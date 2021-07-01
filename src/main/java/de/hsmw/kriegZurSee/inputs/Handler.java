@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 public class Handler implements EventHandler {
     public final Game game;
 
-
+//static class to access game components while events
     public Handler(Game game) {
         this.game = game;
     }

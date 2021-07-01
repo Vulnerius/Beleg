@@ -5,6 +5,7 @@ import de.hsmw.kriegZurSee.constants.ID;
 import de.hsmw.kriegZurSee.gameObjects.boats.Boat;
 import de.hsmw.kriegZurSee.constants.GameState;
 import de.hsmw.kriegZurSee.gameObjects.boats.HeliLandingBoat;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ public class EndUI {
         this.stage = stage;
         VBox vBox = new VBox(25);
         Button playAgain = new Button("Play Again");
+        //code for resetting everything for a new Game
         playAgain.setOnAction(event -> {
             stage.close();
             game.setGameState(GameState.NEW);
@@ -37,17 +39,19 @@ public class EndUI {
             game.getInactivePlayer().resetShotCount();
             game.switchTurn();
         });
+        //closing the Application
         Button exit = new Button("exit");
         exit.setOnAction(event -> {
             game.ui.stop();
             stage.close();
         });
+        //telling Players who won
         Label whoWon = new Label(game.getActivePlayer().getID() + " won!");
         Label free = new Label();
         vBox.getChildren().addAll(free, whoWon, playAgain, exit);
-        Scene scene = new Scene(vBox, 200, 200);
-        stage.setScene(scene);
+        vBox.setPadding(new Insets(50,50,50,50));
+        Scene scene = new Scene(vBox, 400, 400);
+        this.stage.setScene(scene);
         stage.show();
-
     }
 }
