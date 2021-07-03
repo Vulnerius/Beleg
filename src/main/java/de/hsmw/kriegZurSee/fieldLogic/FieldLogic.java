@@ -8,28 +8,28 @@ import javafx.scene.paint.Color;
 
 import java.util.Random;
 
-public class FieldLogic {
-    private static final Random r = new Random();
+public interface FieldLogic {
+    Random r = new Random();
     //initialising Player1 Boats
-    private static final BattleShip battleShipp1 = new BattleShip((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 4 * 40, 40, Color.WHITE);
-    private static final Corsair corsairp1 = new Corsair((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 3 * 40, Color.WHITE);
-    private static final HeliLandingBoat heliLandingBoatp1 = new HeliLandingBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 2 * 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat1p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat2p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
+    BattleShip battleShipp1 = new BattleShip((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 4 * 40, 40, Color.WHITE);
+    Corsair corsairp1 = new Corsair((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 3 * 40, Color.WHITE);
+    HeliLandingBoat heliLandingBoatp1 = new HeliLandingBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 2 * 40, 40, Color.WHITE);
+    RepairBoat repairBoat1p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
+    RepairBoat repairBoat2p1 = new RepairBoat((int) Utilis.randPtF1().getX(), (int) Utilis.randPtF1().getY(), 40, 40, Color.WHITE);
 
     //initialising Player2 Boats
-    private static final BattleShip battleShipp2 = new BattleShip((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 4 * 40, 40, Color.WHITE);
-    private static final Corsair corsairp2 = new Corsair((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 3 * 40, Color.WHITE);
-    private static final HeliLandingBoat heliLandingBoatp2 = new HeliLandingBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 2 * 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat1p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
-    private static final RepairBoat repairBoat2p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
+    BattleShip battleShipp2 = new BattleShip((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 4 * 40, 40, Color.WHITE);
+    Corsair corsairp2 = new Corsair((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 3 * 40, Color.WHITE);
+    HeliLandingBoat heliLandingBoatp2 = new HeliLandingBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 2 * 40, 40, Color.WHITE);
+    RepairBoat repairBoat1p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
+    RepairBoat repairBoat2p2 = new RepairBoat((int) Utilis.randPtF2().getX(), (int) Utilis.randPtF2().getY(), 40, 40, Color.WHITE);
 
     //assigning boats to Boat-Arrays
-    private static final Boat[] boatsP1 = new Boat[]{battleShipp1, corsairp1, heliLandingBoatp1, repairBoat1p1, repairBoat2p1};
-    private static final Boat[] boatsP2 = new Boat[]{battleShipp2, corsairp2, heliLandingBoatp2, repairBoat1p2, repairBoat2p2};
+    Boat[] boatsP1 = new Boat[]{battleShipp1, corsairp1, heliLandingBoatp1, repairBoat1p1, repairBoat2p1};
+    Boat[] boatsP2 = new Boat[]{battleShipp2, corsairp2, heliLandingBoatp2, repairBoat1p2, repairBoat2p2};
 
 
-    public static Boat[] setBoats(ID id) {
+    static Boat[] setBoats(ID id) {
         if (id.equals(ID.Player1Field)) {
             return setField1Boats();
         } else {

@@ -17,11 +17,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 
-public class Field extends GameObject {
+public class Field extends GameObject implements FieldLogic{
 
     private Boat[] boats;
     private final Game game;
-    private int fiveShotCounter = 0;
+    private int fiveShotCounter = 1;
 
     public Field(Game game, de.hsmw.kriegZurSee.constants.ID id, int x, int y, int width, int height) {
         super(id, x, y, width, height, Color.BLUE);
@@ -29,6 +29,7 @@ public class Field extends GameObject {
         boats = FieldLogic.setBoats(id);
     }
 
+    //updating the field after userInputs
     public void updateField() {
         updateBS_HLB();
         if (game.getActivePlayer().getField().getID() == getID()) {
@@ -36,6 +37,7 @@ public class Field extends GameObject {
         }
     }
 
+    //resetting the CoolDowns when switching Turns
     public void resetCoolDowns() {
         for (Boat b : boats) {
             if (b.isHasCoolDown()) {
@@ -44,6 +46,8 @@ public class Field extends GameObject {
         }
     }
 
+    //method to show the Active Players hit Boats (on the left of the UI)
+    //it is showing the inverted Hitpoints
     private void updateHitPoints() {
         game.ui.hitPoints.getChildren().clear();
         int posX = 25;
@@ -74,6 +78,7 @@ public class Field extends GameObject {
         game.ui.hitPoints.getChildren().add(activePlayer);
     }
 
+    //checking whether or not all Boats are dead in the Field
     public boolean allBoatsDead() {
         int countOfDeadBoats = 0;
         for (Boat boat : boats) {
@@ -83,6 +88,7 @@ public class Field extends GameObject {
         return countOfDeadBoats == boats.length;
     }
 
+    //setting the Color of all Boats - after switching Turns
     public void setBoatColors(Color col) {
         for (Boat boat : boats) {
             if (!boat.isBoatDrowned())
@@ -90,6 +96,7 @@ public class Field extends GameObject {
         }
     }
 
+    //checking if the Battleship is drowned and updating the HeliLandingBoat accordingly each updateField()
     private void updateBS_HLB() {
         boolean bsIsDead = false;
         for (Boat b : boats) {
@@ -103,10 +110,12 @@ public class Field extends GameObject {
         }
     }
 
+    //setting boats after switching Turns
     public void newRound() {
         boats = FieldLogic.setBoats(getID());
     }
 
+    //checking for hits in UI
     private boolean searchingForMouseClickInField(Point2D mouseclick) {
         for (Boat boat : boats) {
             if (boat.didIGotHit(mouseclick))
@@ -115,6 +124,7 @@ public class Field extends GameObject {
         return false;
     }
 
+    //returning which Boat got hit by a MouseClick
     public Boat searchForAliveBoat(Point2D mouseClick) {
         for (Boat boat : boats) {
             if (boat.didIGotHit(mouseClick) && !boat.isBoatDrowned()) {
@@ -130,6 +140,7 @@ public class Field extends GameObject {
         return boats;
     }
 
+    //method to return a Position where a Boat is located on the Field, except the only left Boat is the HeliLandingBoat, because it can't be discovered
     public Circle getBoatPos() {
         Random i = new Random();
         int found = i.nextInt(boats.length);
@@ -158,35 +169,47 @@ public class Field extends GameObject {
             game.getInactivePlayer().getField().setOnShot(mouseClick);
     }
 
+    //method to access the Field, when a Player shoots at it
     public void setOnShot(Point2D mouseClick) {
+        //calling that the active Player did shoot and lowering his shotCount
         game.getActivePlayer().playerDidShoot();
+        //disabling the shoots5 Button, for a fair game
+        game.ui.disableShoots5Button(true);
+        //checking if the Field has living boats else setting GameState to End + switching Turns for EndUI
         if (allBoatsDead()) {
             game.setGameState(GameState.END);
+            game.switchTurn();
         }
+        //checking if the Player can shoot and otherwise resetting his shotcount and switching turns
         if (Integer.parseInt(game.getActivePlayer().getShotCount()) <= 0) {
             game.getActivePlayer().resetShotCount();
             game.ui.update(game.getActivePlayer().getID() + "shotCount restored!");
             game.switchTurn();
         }
+        //initializing a boolean to check if a player can shoot 5 shots, if called
         boolean canShoot = false;
         for (Boat searchingForBattleShip : game.getActivePlayer().getField().getBoats()) {
             if (searchingForBattleShip.getID().equals(ID.BattleShip)) {
                 canShoot = !searchingForBattleShip.isBoatDrowned();
             }
         }
+        //if statement to check if a Player can shoot 5 shots
         if (game.getActivePlayer().isShoots5() && canShoot) {
-            game.ui.update(game.getActivePlayer().getID() + " shoots 5 shots");
+            //if player did hit -> drawing HitPoint + adding HitPoint to hitpointsArray of the Boat
             if (searchingForMouseClickInField(mouseClick)) {
                 Boat gotShot = searchForAliveBoat(mouseClick);
                 if(gotShot != null) {
                     gotShot.addHitPoint(mouseClick);
                     game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
-                    game.ui.disableShoots5Button(true);
                 }
-            } else if (!searchingForMouseClickInField(mouseClick)) {
+            }
+            //else drawing a missCircle
+            else if (!searchingForMouseClickInField(mouseClick)) {
                 game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
             }
+            //checking the fiveShotCounter
             if (fiveShotCounter == 5) {
+                //after a player shot 5 times, reset counter to 0, update the TextField to tell the Players they switched turns
                 fiveShotCounter = 0;
                 game.ui.update("switched Turns");
                 game.getInactivePlayer().getField().updateField();
@@ -196,14 +219,16 @@ public class Field extends GameObject {
             }
             fiveShotCounter++;
         } else {
+            //single shot
             if (searchingForMouseClickInField(mouseClick)) {
+                //hit
                 Boat gotShot = searchForAliveBoat(mouseClick);
                 if (gotShot != null) {
                     gotShot.addHitPoint(mouseClick);
                     game.ui.drawHitCircle((int) mouseClick.getX(), (int) mouseClick.getY());
-
                 }
             } else {
+                //or miss
                 game.ui.drawMissCircle((int) mouseClick.getX(), (int) mouseClick.getY());
                 game.switchTurn();
             }

@@ -1,5 +1,6 @@
 package de.hsmw.kriegZurSee.constants;
 
+//enum for ID's, to identify different GameObjects
 public enum ID {
     BattleShip(),
     Corsair(),

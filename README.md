@@ -15,7 +15,7 @@ Jeder Spieler hat 5 Schiffe: <br />
 
 Jedes Boot hat seine eigene passive Fähigkeit<br />
 ReparierBoot: kann in dieser Runde 1 Stelle eines beliebigen Schiffs reparieren<br />
-HeliLandeBoot: ermöglicht es dem Spieler seine SchussAnzahl zurückzusetzen, es kann erst angegriffen werden, nachdem das Schlachtschiff zerstört wurde<br />
+HeliLandeBoot: ermöglicht es dem Spieler seine SchussAnzahl zurückzusetzen, es kann erst angegriffen werden, nachdem das Schlachtschiff zerstört wurde, es kann nicht vom Gegner über die Suche gefunden werden<br />
 PiratenSchiff: ermöglicht für diese Runde die Rückgabe eines Feldes, das definitiv von einem Schiff besetzt ist<br />
 Schlachtschiff: ermöglicht den Abschuss einer 5 Schuss Salve<br />
 

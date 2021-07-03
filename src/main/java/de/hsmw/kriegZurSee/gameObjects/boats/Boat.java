@@ -43,6 +43,7 @@ public abstract class Boat extends GameObject {
     //method to add a hitPoint to the hitPointCounter
     public void addHitPoint(Point2D p0) {
         if(didIGotHit(p0) && hitPointCounter[Utilis.pointToIndex(this,p0)] == 0) {
+            //method is inverted, if the Boat is shot at index 0 -> the last index of the array will change to 1
             hitPointCounter[Utilis.pointToIndex(this,p0)] = 1;
         }
     }

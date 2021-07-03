@@ -30,8 +30,8 @@ public class Game {
         field2 = new Field(this, ID.Player2Field, 20, 380, BOARD_WIDTH_HEIGHT, BOARD_WIDTH_HEIGHT);
         player1 = new Player(this, field1, ID.Player1);
         player2 = new Player(this, field2, ID.Player2);
-        ui = new UserInterFace(this, stage, handler);
         player1.setHasTurn(true);
+        ui = new UserInterFace(this, stage, handler);
         field1.updateField();
         player2.setHasTurn(false);
         field1.setBoatColors(Color.PURPLE);

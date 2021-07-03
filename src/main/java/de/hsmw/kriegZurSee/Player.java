@@ -70,7 +70,7 @@ public class Player {
     }
 
     //repairing method to be executed from the Game
-    //getting the hitten Boat and one of the RepairBoats in the players field if available
+    //getting the hit Boat and one of the RepairBoats in the players field if available
     public void repair(Point2D mouseclick) {
         RepairBoat repairing = null;
         Boat toRepair = field.searchForAliveBoat(mouseclick);

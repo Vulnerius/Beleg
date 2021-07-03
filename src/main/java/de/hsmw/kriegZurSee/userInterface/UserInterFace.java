@@ -74,14 +74,14 @@ public class UserInterFace {
         // initialising Buttons with dedicated Action
         restore = new Button("restore");
         restore.setOnAction(ButtonClick.onRestore());
-        searchPt = new Button("search Pointt");
+        searchPt = new Button("search Point");
         searchPt.setOnAction(ButtonClick.onSearch());
         buttonBox.getChildren().addAll(restore, searchPt);
         shoot5 = new Button("shoot 5 shots");
         shoot5.setOnAction(ButtonClick.onShoot5());
         buttonBox.getChildren().add(shoot5);
         // Label for ShotCount of the active Player
-        shotCount = new Label(game.getActivePlayer().getID() + " : " + game.getActivePlayer().getShotCount());
+        shotCount = new Label(game.getActivePlayer().getID() + " @ " + game.getActivePlayer().getShotCount() + " shots");
         buttonBox.getChildren().add(shotCount);
         //TextField for Output to the Players
         tOUT = new TextField();
