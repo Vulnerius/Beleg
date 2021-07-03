@@ -7,7 +7,7 @@ import javafx.scene.input.MouseEvent;
 
 public class MouseInput {
 
-    final Game game;
+    private final Game game;
 
     public MouseInput(Game game, MouseEvent event) {
         this.game = game;

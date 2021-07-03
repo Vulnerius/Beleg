@@ -15,10 +15,8 @@ import javafx.stage.Stage;
 import java.util.Arrays;
 
 public class EndUI {
-    private final Stage stage;
 
     public EndUI(Game game, Stage stage) {
-        this.stage = stage;
         VBox vBox = new VBox(25);
         Button playAgain = new Button("Play Again");
         //code for resetting everything for a new Game
@@ -51,7 +49,7 @@ public class EndUI {
         vBox.getChildren().addAll(free, whoWon, playAgain, exit);
         vBox.setPadding(new Insets(50,50,50,50));
         Scene scene = new Scene(vBox, 400, 400);
-        this.stage.setScene(scene);
+        stage.setScene(scene);
         stage.show();
     }
 }

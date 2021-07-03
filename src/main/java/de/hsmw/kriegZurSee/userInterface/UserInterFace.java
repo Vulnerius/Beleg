@@ -31,14 +31,11 @@ public class UserInterFace {
     private final Game game;
 
     private final Stage stage;
-    private final Scene scene;
     private final AnchorPane fieldAnchorPane;
     public final Label shotCount;
     public final TextField tOUT;
     public final Pane hitPoints;
-    private final Button restore;
     private final Button shoot5;
-    private final Button searchPt;
 
     private final Circle referenceCircle;
 
@@ -72,9 +69,9 @@ public class UserInterFace {
         //UI BP-Right VBox for Buttons and Output
         VBox buttonBox = new VBox(25);
         // initialising Buttons with dedicated Action
-        restore = new Button("restore");
+        Button restore = new Button("restore");
         restore.setOnAction(ButtonClick.onRestore());
-        searchPt = new Button("search Point");
+        Button searchPt = new Button("search Point");
         searchPt.setOnAction(ButtonClick.onSearch());
         buttonBox.getChildren().addAll(restore, searchPt);
         shoot5 = new Button("shoot 5 shots");
@@ -96,7 +93,7 @@ public class UserInterFace {
         //setting width and height of the Scene
         int HEIGHT = 800;
         int WIDTH = 800;
-        scene = new Scene(sceneBP, WIDTH, HEIGHT);
+        Scene scene = new Scene(sceneBP, WIDTH, HEIGHT);
         // adding Grid to the Fields
         initializeUI();
         this.stage.setWidth(1000);
@@ -115,7 +112,7 @@ public class UserInterFace {
         drawGrid(game.getField2(), fieldAnchorPane);
     }
 
-    public void drawGrid(Field field, AnchorPane anchorPane) {
+    private void drawGrid(Field field, AnchorPane anchorPane) {
         int x = (int) field.getPosition().getX();
         int y = (int) field.getPosition().getY();
         for (int index = 0; index < 9; index++) {

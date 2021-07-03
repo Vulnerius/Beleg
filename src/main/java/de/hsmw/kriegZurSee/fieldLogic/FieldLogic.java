@@ -28,7 +28,6 @@ public interface FieldLogic {
     Boat[] boatsP1 = new Boat[]{battleShipp1, corsairp1, heliLandingBoatp1, repairBoat1p1, repairBoat2p1};
     Boat[] boatsP2 = new Boat[]{battleShipp2, corsairp2, heliLandingBoatp2, repairBoat1p2, repairBoat2p2};
 
-
     static Boat[] setBoats(ID id) {
         if (id.equals(ID.Player1Field)) {
             return setField1Boats();
@@ -95,7 +94,7 @@ public interface FieldLogic {
                 Point2D forEveryBoat = Utilis.randPtF2();
                 int ran = r.nextInt(2);
                 Utilis.setBoatPos(boat, forEveryBoat, ran);
-                if (whileLoopCounter == 1000000) {
+                if (whileLoopCounter == 100000) {
                     break;
                 }
                 //checking if a boat collides with other boats on the Field

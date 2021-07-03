@@ -170,7 +170,7 @@ public class Field extends GameObject implements FieldLogic{
     }
 
     //method to access the Field, when a Player shoots at it
-    public void setOnShot(Point2D mouseClick) {
+    private void setOnShot(Point2D mouseClick) {
         //calling that the active Player did shoot and lowering his shotCount
         game.getActivePlayer().playerDidShoot();
         //disabling the shoots5 Button, for a fair game
